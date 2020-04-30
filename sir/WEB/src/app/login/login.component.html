@@ -1,0 +1,92 @@
+<!-- <div class="container">
+    <div>
+        User Name : <input type="text" name="username" [(ngModel)]="username"> Password : <input type="password" name="password" [(ngModel)]="password">
+    </div>
+    <button (click)=checkLogin() class="btn btn-success">
+    Login
+  </button>
+</div> -->
+
+<!-- <mat-card>
+    <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form>
+            <table class="example-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <p *ngIf="error" class="error">
+                    {{ error }}
+                </p>
+            </table>
+        </form>
+        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button (click)="checkLogin()" color="primary">Login</button>
+    </mat-card-actions>
+</mat-card> -->
+
+
+
+
+
+<div class="login-page">
+  <div class="content">
+      <!-- <h1 class="app-name">Sb Admin Material</h1> -->
+      <form class="login-form" fxFlex  >
+          <div class="text-center">
+              <h2 class="app-name">Login</h2>
+          </div>
+          <div fxFlex  fxlayout="row" fxlayout.lt-md="column">
+              <div fxFlexFill>
+                  <mat-form-field class="w-100">
+                      <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+                      <!-- <input matInput placeholder="Email"> -->
+                  </mat-form-field>
+              </div>
+          </div>
+          <div fxFlex  fxLayout="row" fxLayout.lt-md="column">
+              <div fxFlexFill>
+                  <mat-form-field class="w-100">
+                      <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+                  </mat-form-field>
+              </div>
+          </div>
+          <div fxFlex  fxLayout="row" fxLayout.lt-md="column" style="margin: 20px 0 30px 0">
+              <div fxFlex>
+                  <mat-checkbox color="primary">Remember Me</mat-checkbox>
+              </div>
+              <div fxFlex  fxLayoutAlign="end">
+                  <a href="javascript:void(0)">Forget Password</a>
+              </div>
+          </div>
+          <p *ngIf="error" class="error">
+              {{ error }}
+          </p>
+          <div fxFlex  fxLayout="row" fxLayout.lt-md="column">
+              <div fxFlexFill>
+                  <button mat-raised-button color="primary" class="w-100" (click)="checkLogin()">Login</button>
+              </div>
+          </div>
+
+      </form>
+      <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  </div>
+  <!-- <mat-card-actions>
+      <button mat-raised-button (click)="checkLogin()" color="primary">Login</button>
+  </mat-card-actions> -->
+</div>

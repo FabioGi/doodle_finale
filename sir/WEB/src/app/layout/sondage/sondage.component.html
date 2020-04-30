@@ -1,0 +1,129 @@
+<mat-toolbar color="primary">Creation d'un Sondage</mat-toolbar>
+<mat-card>
+      <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Pour quelle occasion?</ng-template>
+            <mat-form-field class="example-full-width">
+              <mat-label>Titre</mat-label>
+              <input matInput placeholder="Reunion,fêtes,diner gala" formControlName="firstCtrl" required>
+            </mat-form-field> <br>
+            <mat-form-field class="example-full-width">
+                <mat-label>Lieu</mat-label>
+                <input matInput placeholder="Rennes,paris,abidjan" formControlName="firstCtrl" required>
+            </mat-form-field> <br>
+            <mat-form-field class="example-full-width">
+                <mat-label>Resume</mat-label>
+                 <textarea  matInput placeholder="resume..." formControlName="firstCtrl" required></textarea>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Suivant</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Creation des creneaux</ng-template>
+            <table class="table">
+                <tbody>
+                  <tr>
+                    <td>
+                        <mat-form-field>
+                            <input matInput placeholder="saisissez une date" [matDatepicker]="picker" [formControl]="dateControl1">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                       </mat-form-field>
+                    </td>
+                    <td>
+                        <ngx-mat-timepicker [formControl]="dateControl2"></ngx-mat-timepicker>
+                    </td>
+                    <td>
+                        <ngx-mat-timepicker [formControl]="dateControl3"></ngx-mat-timepicker>
+                    </td>
+                    <td>
+                        <button mat-raised-button  color="primary"(click)="addEvent()">Ajouter creneau</button>
+                    </td>
+
+                  </tr>
+                </tbody>
+            </table>
+
+            <mat-card >
+              <table *ngIf="events"  >
+                  <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Heure debut</th>
+                        <th>Heure fin</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let event of events">
+                            <td>
+                                {{event.date | date:'fullDate' }}
+                            </td>
+                            <td>
+                                {{event.start | date:'shortTime' }}
+                            </td>
+                            <td>
+                                {{event.end | date:'shortTime' }}
+                            </td>
+                            <td>
+                                <button mat-raised-button  color="warn"(click)="deleteEvent(event)">Supprimer creneau</button>
+                            </td>
+                          </tr>
+
+                        </tbody>
+              </table>
+            </mat-card>
+
+
+            <div>
+              <button mat-button matStepperPrevious>Retour</button>
+              <button mat-button matStepperNext>Suivant</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Inviter les participants</ng-template>
+              <section class="example-section">
+                <mat-checkbox class="example-margin" [(ngModel)]="checkedx" (click)="selectEmail(user.email)">Checked</mat-checkbox>
+              </section>
+              <section class="example-section">
+                <mat-checkbox class="example-margin" [(ngModel)]="checkedx1">Checked</mat-checkbox>
+              </section>
+              <section class="example-section">
+                <mat-checkbox class="example-margin" [(ngModel)]="checkedx2">Checked</mat-checkbox>
+              </section>
+              <section class="example-section">
+                <mat-checkbox class="example-margin" [(ngModel)]="checkedx2">Checked</mat-checkbox>
+              </section>
+              <section class="example-section">
+                <mat-checkbox class="example-margin" [(ngModel)]="checkedx3">Checked</mat-checkbox>
+              </section>
+              <section class="example-section">
+                <mat-checkbox class="example-margin" [(ngModel)]="checkedx4">Checked</mat-checkbox>
+              </section>
+              <section class="example-section">
+                <mat-checkbox class="example-margin" [(ngModel)]="checkedx7">Checked</mat-checkbox>
+              </section>
+
+              <div>
+                 <button mat-button matStepperPrevious>Retour</button>
+                <button mat-button matStepperNext>Suivant</button>
+              </div>
+            </form>
+          </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Fin</ng-template>
+          <p>Veuillez valider la creation du formulaire</p>
+          <div>
+            <button mat-button matStepperPrevious>Retour</button>
+            <button mat-raised-button  color="primary" [routerLink]="['/sondage-details']">Valider</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+</mat-card>
