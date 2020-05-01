@@ -27,6 +27,10 @@ export class DashboardComponent implements OnInit {
     displayedColumns = ['position', 'name', 'weight', 'symbol'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
     places: Array<any> = [];
+    panelOpenState = false;
+     public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales','Sales'];
+     public pieChartData: number[] = [300, 500, 100,100];
+     public pieChartType: string;
 
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim(); // Remove whitespace
@@ -66,5 +70,7 @@ export class DashboardComponent implements OnInit {
         ];
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+      this.pieChartType = 'pie';
+    }
 }

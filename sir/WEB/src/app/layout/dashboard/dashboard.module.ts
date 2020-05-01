@@ -2,6 +2,7 @@ import { AngularMaterialModule } from './../../angular-material.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ChartsModule as Ng2Charts } from 'ng2-charts';
 // import { MatButtonModule, MatCardModule, MatIconModule, MatTableModule } from '@angular/material';
 // import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -15,6 +16,7 @@ import { DashboardComponent } from './dashboard.component';
         DashboardRoutingModule,
         // MatGridListModule,
         StatModule,
+        Ng2Charts,
         // MatCardModule,
         // MatCardModule,
         // MatTableModule,

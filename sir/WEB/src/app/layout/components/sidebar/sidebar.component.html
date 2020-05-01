@@ -4,8 +4,30 @@
             <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Dashboard' | translate }}
         </a>
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/sondage']">
-          <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Poll' | translate }}
+          <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Creer Sondage' | translate }}
       </a>
+      <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/sondage']">
+        <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Preferences alimentaires' | translate }}
+      </a>
+      <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/sondage']">
+        <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Allergies alimentaires' | translate }}
+      </a>
+      <div class="nested-menu">
+          <a mat-list-item (click)="addExpandClass('pages')">
+              <mat-icon class="sidenav-icon">add</mat-icon> {{ 'Resultats' | translate }}
+          </a>
+          <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
+              <li>
+                  <a href="javascript:void(0)"><span>{{ 'Sondage 1' | translate }}</span></a>
+              </li>
+              <li>
+                  <a href="javascript:void(0)"><span>{{ 'Sondage 2' | translate }}</span></a>
+              </li>
+              <li>
+                  <a href="javascript:void(0)"><span>{{ 'Sondage 3' | translate }}</span></a>
+              </li>
+          </ul>
+      </div>
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/charts']">
             <mat-icon class="sidenav-icon">bar_chart</mat-icon> {{ 'Charts' | translate }}
         </a>
@@ -24,21 +46,6 @@
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/blank-page']">
             <mat-icon class="sidenav-icon">insert_drive_file</mat-icon> {{ 'Blank Page' | translate }}
         </a>
-        <div class="nested-menu">
-            <a mat-list-item (click)="addExpandClass('pages')">
-                <mat-icon class="sidenav-icon">add</mat-icon> {{ 'Menu' | translate }}
-            </a>
-            <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
-                <li>
-                    <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
-                </li>
-            </ul>
-        </div>
+
     </mat-nav-list>
 </div>

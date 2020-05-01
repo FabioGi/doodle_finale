@@ -8,9 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class StatComponent implements OnInit {
     @Input() bgClass: string;
     @Input() icon: string;
-    @Input() count: number;
     @Input() label: string;
-    @Input() data: number;
+    @Input() content: string;
 
     constructor() {}
 

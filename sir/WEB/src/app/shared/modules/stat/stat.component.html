@@ -1,14 +1,12 @@
 <mat-card [ngClass]="bgClass">
-    <mat-card-header>
-        <div mat-card-avatar>
+    <mat-card-header fxLayoutAlign="center center">
+        <div mat-card-avatar fxLayoutAlign="center center">
             <mat-icon class="icon-lg">{{icon}}</mat-icon>
         </div>
-        <mat-card-title>{{count}}</mat-card-title>
         <mat-card-subtitle>{{label}}</mat-card-subtitle>
+        <mat-card-subtitle>{{content}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
-        <a href="javascript:void(0)" class="float-right card-inverse">
-            View Details
-        </a>
+        <button mat-raised-button  color="primary" [routerLink]="['/sondage']">creer une reunion</button>
     </mat-card-actions>
 </mat-card>

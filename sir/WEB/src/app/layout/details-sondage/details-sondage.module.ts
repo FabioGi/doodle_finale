@@ -5,6 +5,7 @@ import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { DetailsSondageComponent } from './details-sondage.component';
 import { DetailsSondageRoutingModule } from './details-sondage.routing';
+import { FlexLayoutModule } from '@angular/flex-layout';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
@@ -17,7 +18,8 @@ import { DetailsSondageRoutingModule } from './details-sondage.routing';
     ReactiveFormsModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
+    FlexLayoutModule.withConfig({addFlexToParent: false})
   ],
   providers: [
     // NgxMatDatetimePickerModule,
