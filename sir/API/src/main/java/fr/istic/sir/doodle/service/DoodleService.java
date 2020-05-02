@@ -26,6 +26,7 @@ import fr.istic.sir.doodle.entities.Reunion;
 import fr.istic.sir.doodle.entities.Sondage;
 import fr.istic.sir.doodle.entities.User;
 import fr.istic.sir.doodle.entities.Vote;
+import fr.istic.sir.doodle.form.UserDTO;
 import fr.istic.sir.doodle.service.interfaces.IdoodleService;
 /**
  * 
@@ -109,24 +110,24 @@ public class DoodleService implements IdoodleService {
 		return rUser.findAbsenceList(c);
 	}
 
-	@Transactional
-	@Override
+//	@Transactional
+//	@Override
 	// ok
-	 public boolean createUser(User user, List<Allergie> allergies, List<Preference> preferences) {
-		for (Preference preference : preferences) {
-			preference.setUser(user);
-		}
-		
-		for (Allergie allergie : allergies) {
-			allergie.setUser(user);
-		}
-		user.setAllergies(new ArrayList<>());
-		user.getAllergies().addAll(allergies);
-		user.setPreferences(new ArrayList<>());
-		user.getPreferences().addAll(preferences);
-		User response = rUser.save(user) ;
-		return response != null;
-	}
+//	 public boolean createUser(UserDTO user, List<Allergie> allergies, List<Preference> preferences) {
+//		for (Preference preference : preferences) {
+//			preference.setUser(user);
+//		}
+//		
+//		for (Allergie allergie : allergies) {
+//			allergie.setUser(user);
+//		}
+//		user.setAllergies(new ArrayList<>());
+//		user.getAllergies().addAll(allergies);
+//		user.setPreferences(new ArrayList<>());
+//		user.getPreferences().addAll(preferences);
+//		User response = rUser.save(user) ;
+//		return response != null;
+//	}
 	
 
 	@Transactional

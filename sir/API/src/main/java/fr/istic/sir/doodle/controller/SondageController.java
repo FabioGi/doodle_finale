@@ -29,6 +29,7 @@ import fr.istic.sir.doodle.entities.Vote;
 import fr.istic.sir.doodle.form.CreneauxForm;
 import fr.istic.sir.doodle.form.InscriptionForm;
 import fr.istic.sir.doodle.form.SondageForm;
+import fr.istic.sir.doodle.form.UserDTO;
 import fr.istic.sir.doodle.service.interfaces.IdoodleService;
 
 @RestController
@@ -152,17 +153,17 @@ public class SondageController {
 //        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
 //    }
 	
-	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
-	public boolean createUser(@RequestBody InscriptionForm inscription) {
-		Objects.requireNonNull(inscription);
-		User user = inscription.getUser();
-		List<Allergie> allergies = inscription.getAllergies();
-		List<Preference> preferences = inscription.getPreferences();
-		Objects.requireNonNull(user);
-		Objects.requireNonNull(allergies);
-		Objects.requireNonNull(preferences);
-		return doodleService.createUser(user, allergies, preferences);
-	}
+//	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
+//	public boolean createUser(@RequestBody InscriptionForm inscription) {
+//		Objects.requireNonNull(inscription);
+//		UserDTO user = inscription.getUser();
+//		List<Allergie> allergies = inscription.getAllergies();
+//		List<Preference> preferences = inscription.getPreferences();
+//		Objects.requireNonNull(user);
+//		Objects.requireNonNull(allergies);
+//		Objects.requireNonNull(preferences);
+//		return doodleService.createUser(user, allergies, preferences);
+//	}
 	
 	@RequestMapping(value = "/addsondage", method = RequestMethod.POST)
 	public boolean createSondage(@RequestBody SondageForm sondageForm) {

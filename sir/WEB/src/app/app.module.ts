@@ -1,3 +1,4 @@
+import { RegisterComponent } from './register/register.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -7,7 +8,7 @@ import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
@@ -34,7 +35,9 @@ export const createTranslateLoader = (http: HttpClient) => {
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    RegisterComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     LayoutModule,
     TranslateModule.forRoot({
       loader: {

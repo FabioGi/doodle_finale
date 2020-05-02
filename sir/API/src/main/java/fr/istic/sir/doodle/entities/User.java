@@ -50,9 +50,8 @@ public class User {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Sondage sondage;
 	
-	private String nom;
-	private String prenom;
-	private String web;
+	private String name;
+	private String username;
 	
 	@OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, mappedBy = "user")

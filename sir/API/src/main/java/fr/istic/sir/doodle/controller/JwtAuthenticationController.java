@@ -1,5 +1,8 @@
 package fr.istic.sir.doodle.controller;
 
+import java.util.List;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.istic.sir.doodle.config.JwtTokenUtil;
+import fr.istic.sir.doodle.entities.Allergie;
+import fr.istic.sir.doodle.entities.Preference;
+import fr.istic.sir.doodle.entities.User;
+import fr.istic.sir.doodle.form.InscriptionForm;
 import fr.istic.sir.doodle.form.JwtRequest;
 import fr.istic.sir.doodle.form.JwtResponse;
 import fr.istic.sir.doodle.form.UserDTO;
@@ -45,9 +52,22 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 	
+//	@RequestMapping(value = "/register", method = RequestMethod.POST)
+//	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+//		return ResponseEntity.ok(userDetailsService.save(user));
+//	}
+	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
-		return ResponseEntity.ok(userDetailsService.save(user));
+	public ResponseEntity<?> saveUser(@RequestBody InscriptionForm inscription) throws Exception {
+		Objects.requireNonNull(inscription);
+		UserDTO user = inscription.getUser();
+		List<Allergie> allergies = inscription.getAllergies();
+		List<Preference> preferences = inscription.getPreferences();
+		Objects.requireNonNull(user);
+		Objects.requireNonNull(allergies);
+		Objects.requireNonNull(preferences);
+		// return doodleService.createUser(user, allergies, preferences);
+		return ResponseEntity.ok(userDetailsService.save(user, allergies, preferences));
 	}
 
 	private void authenticate(String username, String password) throws Exception {
@@ -60,3 +80,15 @@ public class JwtAuthenticationController {
 		}
 	}
 }
+
+//@RequestMapping(value = "/adduser", method = RequestMethod.POST)
+//public boolean createUser(@RequestBody InscriptionForm inscription) {
+//	Objects.requireNonNull(inscription);
+//	User user = inscription.getUser();
+//	List<Allergie> allergies = inscription.getAllergies();
+//	List<Preference> preferences = inscription.getPreferences();
+//	Objects.requireNonNull(user);
+//	Objects.requireNonNull(allergies);
+//	Objects.requireNonNull(preferences);
+//	return doodleService.createUser(user, allergies, preferences);
+//}

@@ -10,6 +10,7 @@ import fr.istic.sir.doodle.entities.Reunion;
 import fr.istic.sir.doodle.entities.Sondage;
 import fr.istic.sir.doodle.entities.User;
 import fr.istic.sir.doodle.entities.Vote;
+import fr.istic.sir.doodle.form.UserDTO;
 
 public interface IdoodleService {
 	/**
@@ -93,7 +94,7 @@ public interface IdoodleService {
 	 * @param preferences
 	 * @return  true if the request has been executed
 	 */
-	boolean createUser(User user, List<Allergie> allergies, List<Preference> preferences);
+	// boolean createUser(UserDTO user, List<Allergie> allergies, List<Preference> preferences);
 
 	/**
 	 * 

@@ -4,14 +4,14 @@ import java.util.List;
 
 import fr.istic.sir.doodle.entities.Allergie;
 import fr.istic.sir.doodle.entities.Preference;
-import fr.istic.sir.doodle.entities.User;
+// import fr.istic.sir.doodle.entities.User;
 
 public class InscriptionForm {
 	
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 	public List<Allergie> getAllergies() {
@@ -27,7 +27,7 @@ public class InscriptionForm {
 		this.preferences = preferences;
 	}
 	
-	private User user;
+	private UserDTO user;
 	private List<Allergie>allergies;
 	private List<Preference>preferences;
 	public InscriptionForm() {	}

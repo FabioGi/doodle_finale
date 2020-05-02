@@ -1,0 +1,104 @@
+<div class="login-page">
+    <div class="content">
+        <!-- <h1 class="app-name">Sb Admin Material</h1> -->
+          <mat-horizontal-stepper [linear]="isLinear" #stepper  >
+            <mat-step [stepControl]="userForm">
+              <form [formGroup]="userForm">
+                <ng-template matStepLabel>Inscription</ng-template>
+                <mat-form-field class="w-100">
+                    <mat-label>Nom</mat-label>
+                    <input matInput placeholder="saisir le nom" formControlName="name" required>
+                    <!-- <input matInput placeholder="Email"> -->
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                  <mat-label>Login</mat-label>
+                  <input matInput placeholder="Last name, First name" formControlName="username" required>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="pat@example.com" formControlName="email"  required>
+                  </mat-form-field>
+                <mat-form-field class="w-100">
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput placeholder="Last name, First name" formControlName="password" type="password" required>
+                  </mat-form-field>
+                  <mat-form-field class="w-100">
+                      <mat-label>Confirmer mot de passe</mat-label>
+                      <input matInput placeholder="Last name, First name" formControlName="verifyPassword"
+                      type="password" [errorStateMatcher]="errorMatcher" required>
+                      <mat-error *ngIf="userForm.hasError('passwordsDoNotMatch')">
+                         Les mots de passe ne corresponds pas !
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="state">
+                        Les mots de passe correspond t'ils ??
+                        <strong>{{!userForm.hasError('passwordsDoNotMatch')}}</strong>
+                      </div>
+                <div>
+                  <button mat-raised-button matStepperNext color="primary">Suivant</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+              <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Preferences alimentaires</ng-template>
+                <mat-form-field class="example-chip-list">
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+                      <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
+                               [removable]="removable" (removed)="remove(fruit)">
+                        {{fruit.name}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="New fruit..."
+                             [matChipInputFor]="chipList"
+                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                             [matChipInputAddOnBlur]="addOnBlur"
+                             (matChipInputTokenEnd)="add($event)"
+                            >
+                    </mat-chip-list>
+                  </mat-form-field>
+                  <div>
+                      <button mat-raised-button matStepperPrevious color="primary">Back</button>
+                      <button mat-raised-button matStepperNext color="primary">Suivant</button>
+                    </div>
+
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Allergies alimentaires</ng-template>
+                    <mat-form-field class="example-chip-list">
+                        <mat-chip-list #chipList2 aria-label="Fruit selection">
+                          <mat-chip *ngFor="let fruit of preferences" [selectable]="selectable"
+                                   [removable]="removable" (removed)="remove(fruit)">
+                            {{fruit.name}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                          </mat-chip>
+                          <input placeholder="New fruit..."
+                                 [matChipInputFor]="chipList2"
+                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                 [matChipInputAddOnBlur]="addOnBlur"
+                                 (matChipInputTokenEnd)="add2($event)"
+                                >
+                        </mat-chip-list>
+                      </mat-form-field>
+
+                      <div>
+                          <button mat-raised-button matStepperPrevious color="primary">Back</button>
+                          <button mat-raised-button matStepperNext color="primary">Suivant</button>
+                        </div>
+
+                </form>
+              </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              <p>Vous avez enfin termine. Veuillez valider!</p>
+              <div>
+                <button mat-raised-button matStepperPrevious color="primary">Back</button>
+                <button mat-raised-button color="warn" (click)="valider()">Valider</button>
+              </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+
+    </div>
+  </div>

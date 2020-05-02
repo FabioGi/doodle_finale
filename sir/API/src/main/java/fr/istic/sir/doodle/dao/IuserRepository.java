@@ -19,6 +19,6 @@ public interface IuserRepository extends JpaRepository<User, String> {
 	@Query("select u from User u join u.votes v where  v.date <> ?1")
 	Set<User>findAbsenceList(Creneaux c);
 
-	@Query("select u from User u  where u.prenom = ?1 ")
+	@Query("select u from User u  where u.username = ?1 ")
 	User findByUsername(String username);
 }
