@@ -9,6 +9,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +55,8 @@ public class DoodleService implements IdoodleService {
 	IpreferenceRepository rPreference ;
 	@Autowired
 	ICreneauxReposirory rCreneau;
+	@Autowired
+	private JavaMailSender emailSender;
 	
 	Logger logger = Logger.getLogger("logger");
 	
@@ -212,11 +216,28 @@ public class DoodleService implements IdoodleService {
 	}
 
 	@Override
-	public void sendMailToUserAfterSondageCreated() {
-		// avec lien unique du sondage
+	public void sendMailToUserAfterSondageCreated(String mail) {
+		SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("LeMailFonctionne@etudiant.univ-rennes1.fr");
+        message.setTo(mail);
+        message.setSubject("Test Simple Email");
+        message.setText("Hello, Im testing Simple Email");
+        /*message.setTo("kouassi-othniel.konan@etudiant.univ-rennes1.fr");*/
+
+        // Send Message!
+        this.emailSender.send(message);
+        System.out.println("Email Sent to"+ mail);
 		
 	}
 
+	@Override
+	public void sendMultipleMail(List<String> usersMail) {
+			for(String mail: usersMail ) {	
+				this.sendMailToUserAfterSondageCreated(mail);
+			}
+		
+	} 
+	
 	
 	public List<String>getUsersMail(){
 		return rUser.findAll().stream().map(user -> user.getEmail())

@@ -1,16 +1,21 @@
 package fr.istic.sir.doodle.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import fr.istic.sir.doodle.dao.ICreneauxReposirory;
 import fr.istic.sir.doodle.dao.IallergieRepository;
@@ -54,6 +59,11 @@ public class SondageController {
 	IpreferenceRepository rPreference ;
 	@Autowired
 	ICreneauxReposirory rCreneau;
+	 @Autowired
+	 JavaMailSender emailSender;
+	 public static final String  FRIEND_EMAIL = "herve-fabrice.kadio@etudiant.univ-rennes1.fr";
+	 List<String> mails = new ArrayList<>();
+	
 	
 	// @GetMapping("/user/vote")
 	// public Creneaux obtainsCreneauxById(@RequestParam("id") long id) {
@@ -203,6 +213,17 @@ public class SondageController {
 	public void validedSondage(@PathVariable  long id) {
 		doodleService.validedSondage(id);
 	}
+	
+	/**
+	 * SENT MAIL
+	 */
+	
+	    @ResponseBody
+	    @RequestMapping("/mail")
+	    public void sendSimpleEmail(@RequestBody List<String>mails){
+	          doodleService.sendMultipleMail(mails);
+	    	// doodleService.sendMailToUserAfterSondageCreated("hervefab007@gmail.com");
+	    }
 	
 	
 	

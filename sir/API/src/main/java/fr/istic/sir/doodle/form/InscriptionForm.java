@@ -30,6 +30,6 @@ public class InscriptionForm {
 	private UserDTO user;
 	private List<Allergie>allergies;
 	private List<Preference>preferences;
-	public InscriptionForm() {	}
+	public InscriptionForm() {	}	
 
 }

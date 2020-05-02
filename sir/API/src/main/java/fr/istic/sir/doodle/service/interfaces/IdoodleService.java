@@ -103,10 +103,11 @@ public interface IdoodleService {
 	 */
 	public List<Creneaux> getAllVotesOrderBySondage(Sondage s);
 	
-	/***
+	/**
+	 * @return *
 	 * 
 	 */
-	public void sendMailToUserAfterSondageCreated();
+	public void sendMailToUserAfterSondageCreated(String usersMail);
 	/**
 	 * 
 	 * @param idUser
@@ -120,6 +121,12 @@ public interface IdoodleService {
 	 * @return
 	 */
 	public List<Allergie> getAllergieOrderByUser(String idUser);
+	/**
+	 * Sent multiple mails
+	 * @param usersMail
+	 */
+	
+	void sendMultipleMail(List<String> usersMail);
 	
 
 }
