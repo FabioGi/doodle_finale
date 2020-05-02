@@ -1,20 +1,20 @@
+import { AuthenticationService } from './../service/authentication.service';
+import { Allergie } from './Allergie';
 import { Component, OnInit } from "@angular/core";
 import { Validators, FormGroup, FormBuilder, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { ErrorStateMatcher } from '@angular/material';
+import { Preference } from './Preferences';
+import { InscriptionForm } from './InscriptionForm';
+import { RegisterService } from '../service/register.service';
+import { Router } from '@angular/router';
 
 /** Error when the parent is invalid */
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     return control.dirty && form.invalid;
   }
-}
-export interface Fruit {
-  name: string;
-}
-export interface Preferences {
-  name: string;
 }
 
 @Component({
@@ -38,22 +38,17 @@ export class RegisterComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruits: Fruit[] = [
-    {name: 'Lemon'},
-    {name: 'Lime'},
-    {name: 'Apple'},
-  ];
-
-  preferences: Preferences[] = [
-    {name: 'goyave'},
-    {name: 'ananas'},
-    {name: 'pomme'},
-  ];
+  allergies: Allergie[] = [];
+  preferences: Preference[] = [];
+  error: string | null;
 
 
 
-
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder,
+              private rs: RegisterService,
+              private router: Router,
+              private ls: AuthenticationService
+              ) {}
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -88,13 +83,13 @@ export class RegisterComponent implements OnInit {
     return condition ? { passwordsDoNotMatch: true} : null;
   }
 
-  add(event: MatChipInputEvent): void {
+  addAllergie(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
     // Add our fruit
     if ((value || '').trim()) {
-      this.fruits.push({name: value.trim()});
+      this.allergies.push({name: value.trim()});
     }
 
     // Reset the input value
@@ -103,7 +98,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  add2(event: MatChipInputEvent): void {
+  addPreference(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
@@ -118,16 +113,41 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  remove(fruit: Fruit): void {
-    const index = this.fruits.indexOf(fruit);
+  removeAllergie(allergie: Allergie): void {
+    const index = this.allergies.indexOf(allergie);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      this.allergies.splice(index, 1);
+    }
+  }
+  removePreference(preference: Preference): void {
+    const index = this.preferences.indexOf(preference);
+
+    if (index >= 0) {
+      this.preferences.splice(index, 1);
     }
   }
 
   valider() {
-    console.log(this.userForm.value,this.fruits);
+    const inscription =  new InscriptionForm(this.userForm.value,this.preferences,this.allergies);
+    this.rs.register(inscription).subscribe(
+      data => {
+           console.log('utlisateur creer avec succes');
+          // this.checkLogin(this.userForm.value.username , this.userForm.value.username.password);
+      },
+      error => {
+        // this.invalidLogin = true
+        this.error = error.message;
+
+      }
+    )
+  }
+
+  checkLogin(username,password) {
+    this.ls.authenticate(username, password).subscribe(() => {
+      this.router.navigate(['/sondage-details']);
+    });
+
   }
 
 }

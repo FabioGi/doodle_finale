@@ -44,16 +44,16 @@
                 <ng-template matStepLabel>Preferences alimentaires</ng-template>
                 <mat-form-field class="example-chip-list">
                     <mat-chip-list #chipList aria-label="Fruit selection">
-                      <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
-                               [removable]="removable" (removed)="remove(fruit)">
-                        {{fruit.name}}
+                      <mat-chip *ngFor="let preference of preferences" [selectable]="selectable"
+                               [removable]="removable" (removed)="removePreference(preference)">
+                        {{preference.name}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                       </mat-chip>
-                      <input placeholder="New fruit..."
+                      <input placeholder="New preferences"
                              [matChipInputFor]="chipList"
                              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                              [matChipInputAddOnBlur]="addOnBlur"
-                             (matChipInputTokenEnd)="add($event)"
+                             (matChipInputTokenEnd)="addPreference($event)"
                             >
                     </mat-chip-list>
                   </mat-form-field>
@@ -69,16 +69,16 @@
                     <ng-template matStepLabel>Allergies alimentaires</ng-template>
                     <mat-form-field class="example-chip-list">
                         <mat-chip-list #chipList2 aria-label="Fruit selection">
-                          <mat-chip *ngFor="let fruit of preferences" [selectable]="selectable"
-                                   [removable]="removable" (removed)="remove(fruit)">
-                            {{fruit.name}}
+                          <mat-chip *ngFor="let allergie of allergies" [selectable]="selectable"
+                                   [removable]="removable" (removed)="removeAllergie(allergie)">
+                            {{allergie.name}}
                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                           </mat-chip>
-                          <input placeholder="New fruit..."
+                          <input placeholder="New allergie"
                                  [matChipInputFor]="chipList2"
                                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                  [matChipInputAddOnBlur]="addOnBlur"
-                                 (matChipInputTokenEnd)="add2($event)"
+                                 (matChipInputTokenEnd)="addAllergie($event)"
                                 >
                         </mat-chip-list>
                       </mat-form-field>
