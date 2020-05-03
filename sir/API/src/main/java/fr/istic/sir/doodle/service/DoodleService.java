@@ -1,6 +1,7 @@
 package fr.istic.sir.doodle.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -28,6 +29,7 @@ import fr.istic.sir.doodle.entities.Reunion;
 import fr.istic.sir.doodle.entities.Sondage;
 import fr.istic.sir.doodle.entities.User;
 import fr.istic.sir.doodle.entities.Vote;
+import fr.istic.sir.doodle.form.SondageDTO;
 import fr.istic.sir.doodle.form.UserDTO;
 import fr.istic.sir.doodle.service.interfaces.IdoodleService;
 /**
@@ -142,6 +144,34 @@ public class DoodleService implements IdoodleService {
 		sondage.setUser(user);
 		Sondage response = rSondage.save(sondage);
 		return response != null ;
+		
+	}
+	
+	@Transactional
+	@Override
+	public boolean createSondage(SondageDTO sondage,List<Creneaux> creneau, List<String>mails) {
+		// create sondage
+		Sondage nSondage = new Sondage();
+		nSondage.setLieu(sondage.getLieu());
+		nSondage.setResume(sondage.getResume());
+		nSondage.setTitre(sondage.getTitre());
+		User user = rUser.findById(sondage.getUserMail()).get();
+		List pauseList  = Arrays.asList("12:00", "13:00", "14:00");
+		Boolean pause ;
+		nSondage.setUser(user);
+		// match a creneau to sondage
+		for(Creneaux cr: creneau ) {
+			pause = pauseList.contains(cr.getHeure_debut());
+			cr.setPause(pause);
+			cr.setValided(false);
+			cr.setSondage(nSondage);
+		}
+		Sondage response = rSondage.save(nSondage);
+		
+		if(response!=null) {
+			sendMultipleMail(mails);
+		}
+		return response!=null;
 		
 	}
 

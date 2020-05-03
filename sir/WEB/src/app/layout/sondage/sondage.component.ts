@@ -5,8 +5,14 @@ import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/a
 import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-
-
+import { Creneau } from './creneau';
+import { Sondage } from './sondage';
+import { SondageService } from 'src/app/service/sondage.service';
+export interface SelctedDate {
+     date: Date;
+     start: Date;
+     end: Date;
+}
 
 @Component({
   selector: 'app-sondage',
@@ -34,47 +40,36 @@ export class SondageComponent implements OnInit {
   filteredFruits: Observable<string[]>;
   fruits: string[] = ['Lemon'];
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+
   @ViewChild('fruitInput',{static: false}) fruitInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto',{static: false}) matAutocomplete: MatAutocomplete;
   // @ViewChild('picker',) picker: any;
 
 
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder,
+              private ss: SondageService) {
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
+    ss.getUsersMail().subscribe((mails)=>console.log(mails));
+
   }
 
   ngOnInit() {
-      this.firstFormGroup = this._formBuilder.group({
-        firstCtrl: ['', Validators.required]
+    const userMail = sessionStorage.getItem('email');
+    this.firstFormGroup = this._formBuilder.group({
+        titreCtrl: ['', Validators.required],
+        lieuCtrl: ['', Validators.required],
+        resumeCtrl: ['', Validators.required],
+        mailCtrl: [userMail]
       });
-      this.secondFormGroup = this._formBuilder.group({
+    this.secondFormGroup = this._formBuilder.group({
         secondCtrl: ['', Validators.required]
       });
-      const userMail = sessionStorage.getItem("email");
+
     }
 
-    // events = [
-    //   {
-    //     start: new FormControl(new Date(2021,9,4,5,6,7)),
-    //     end: new FormControl(new Date(2021,9,4,5,6,7))
-    //   },
-    //   {
-    //     start: new FormControl(new Date(2021,9,4,5,6,7)),
-    //     end: new FormControl(new Date(2021,9,4,5,6,7))
-    //   },
-    //   {
-    //     start: new FormControl(new Date(2021,9,4,5,6,7)),
-    //     end: new FormControl(new Date(2021,9,4,5,6,7))
-    //   },
-    // ];
-
-    // public formGroup = new FormGroup({
-    //   date: new FormControl(null, [Validators.required]),
-    //   date2: new FormControl(null, [Validators.required])
-    // })
     add(event: MatChipInputEvent): void {
       const input = event.input;
       const value = event.value;
@@ -113,24 +108,31 @@ export class SondageComponent implements OnInit {
     }
 
     addEvent() {
-      // console.log(this.dateControl1.value);
-      // console.log(this.dateControl2);
             this.events.push({
-            // start: (new Date(this.dateControl1.value)).toString().replace(/\S+\s(\S+)\s(\d+)\s(\d+)\s.*/,'$2-$1-$3'),
-            // end:   (new Date(this.dateControl2.value)).toString().replace(/\S+\s(\S+)\s(\d+)\s(\d+)\s.*/,'$2-$1-$3')
-             date: new Date(this.dateControl1.value),
-            start: new Date(this.dateControl2.value),
-              end: new Date(this.dateControl3.value)
+             date : new Date(this.dateControl1.value),
+             start: new Date(this.dateControl2.value),
+             end  : new Date(this.dateControl3.value)
             });
 
+    }
 
-      // this.dateControl1 = new FormControl(null, [Validators.required]);
-      // this.dateControl2 = new FormControl(null, [Validators.required]);
-      // this.dateControl3 = new FormControl(null, [Validators.required]);
-      // console.log(this.events[0].start.getDate());
-      // console.log(this.events[0].start.getHours());
-      // console.log(this.events[0].start.getMinutes());
+    creerSondage() {
+      const creneaux: Creneau[] = [];
+      const sondage = new Sondage();
+      const lieu: string   = this.firstFormGroup.value.lieuCtrl   ? this.firstFormGroup.value.lieuCtrl   : null;
+      const mail: string   = this.firstFormGroup.value.mailCtrl   ? this.firstFormGroup.value.mailCtrl   : null;
+      const resume: string = this.firstFormGroup.value.resumeCtrl ? this.firstFormGroup.value.resumeCtrl : null;
+      const titre: string  = this.firstFormGroup.value.titreCtrl  ? this.firstFormGroup.value.titreCtrl  : null;
 
+      sondage.updateSondage(lieu, titre, resume, mail);
+      this.events.forEach((creneau: SelctedDate) => {
+        creneaux.push({dateReunion: creneau.date,
+                      heureDebut: creneau.start.getHours().toString() + ':' + creneau.start.getMinutes().toString(),
+                      heureFin  : creneau.end.getHours().toString()   + ':' + creneau.end.getMinutes().toString()});
+      });
+      console.log(sondage);
+      console.log(creneaux);
+      // recuperer tous les emails de la bd
     }
 
 }

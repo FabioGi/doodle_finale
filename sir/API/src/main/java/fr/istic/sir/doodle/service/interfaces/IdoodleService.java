@@ -10,6 +10,7 @@ import fr.istic.sir.doodle.entities.Reunion;
 import fr.istic.sir.doodle.entities.Sondage;
 import fr.istic.sir.doodle.entities.User;
 import fr.istic.sir.doodle.entities.Vote;
+import fr.istic.sir.doodle.form.SondageDTO;
 import fr.istic.sir.doodle.form.UserDTO;
 
 public interface IdoodleService {
@@ -127,6 +128,14 @@ public interface IdoodleService {
 	 */
 	
 	void sendMultipleMail(List<String> usersMail);
+	/**
+	 * Creation d'un sondage avec la liste de creneau associe
+	 * @param sondage
+	 * @param creneau
+	 * @param mails
+	 * @return
+	 */
+	boolean createSondage(SondageDTO sondage, List<Creneaux> creneau, List<String> mails);
 	
 
 }

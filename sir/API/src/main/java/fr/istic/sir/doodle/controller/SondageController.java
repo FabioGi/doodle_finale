@@ -33,13 +33,14 @@ import fr.istic.sir.doodle.entities.User;
 import fr.istic.sir.doodle.entities.Vote;
 import fr.istic.sir.doodle.form.CreneauxForm;
 import fr.istic.sir.doodle.form.InscriptionForm;
+import fr.istic.sir.doodle.form.SondageDTO;
 import fr.istic.sir.doodle.form.SondageForm;
 import fr.istic.sir.doodle.form.UserDTO;
 import fr.istic.sir.doodle.service.interfaces.IdoodleService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins="http://localhost:5000")  
+@CrossOrigin(origins="http://localhost:5000",maxAge = 3600)  
 public class SondageController {
 	@Autowired
 	ICreneauxReposirory icreCreneauxReposirory;
@@ -174,11 +175,13 @@ public class SondageController {
 	@RequestMapping(value = "/addsondage", method = RequestMethod.POST)
 	public boolean createSondage(@RequestBody SondageForm sondageForm) {
 		Objects.requireNonNull(sondageForm);
-		Sondage sondage = sondageForm.getSondage();
-		String idUser = sondageForm.getIdUser(); 
-		Objects.requireNonNull(idUser);
+		SondageDTO sondage = sondageForm.getSondage();
+		List<Creneaux> creneaux = sondageForm.getCreneau();
+		List<String> mails = sondageForm.getMails();
+		Objects.requireNonNull(creneaux);
 		Objects.requireNonNull(sondage);
-		return doodleService.createSondage(idUser, sondage);
+		Objects.requireNonNull(mails);
+		return doodleService.createSondage(sondage,creneaux,mails);
 	}
 	
 	@RequestMapping(value = "/addcreneau", method = RequestMethod.POST)

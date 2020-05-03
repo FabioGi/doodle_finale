@@ -1,29 +1,40 @@
 package fr.istic.sir.doodle.form;
 
-import fr.istic.sir.doodle.entities.Sondage;
+import java.util.List;
+
+import fr.istic.sir.doodle.entities.Creneaux;
 
 public class SondageForm {
 
-	private String idUser;
-	private Sondage sondage;
+	private SondageDTO sondage;
+	private List<Creneaux>creneau ;
+	private List<String>mails;
 	
 	public SondageForm() {
 	}
 
-	public String getIdUser() {
-		return idUser;
+
+	public List<Creneaux> getCreneau() {
+		return creneau;
 	}
 
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
+	public void setCreneau(List<Creneaux> creneau) {
+		this.creneau = creneau;
 	}
 
-	public Sondage getSondage() {
+
+	public SondageDTO getSondage() {
 		return sondage;
 	}
 
-	public void setSondage(Sondage sondage) {
+
+	public void setSondage(SondageDTO sondage) {
 		this.sondage = sondage;
+	}
+
+
+	public List<String> getMails() {
+		return mails;
 	}
 
 }

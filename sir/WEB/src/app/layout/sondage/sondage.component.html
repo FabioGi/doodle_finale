@@ -6,16 +6,17 @@
             <ng-template matStepLabel>Pour quelle occasion?</ng-template>
             <mat-form-field class="example-full-width">
               <mat-label>Titre</mat-label>
-              <input matInput placeholder="Reunion,fêtes,diner gala" formControlName="firstCtrl" required>
+              <input matInput placeholder="Reunion,fêtes,diner gala" formControlName="titreCtrl" required>
             </mat-form-field> <br>
             <mat-form-field class="example-full-width">
                 <mat-label>Lieu</mat-label>
-                <input matInput placeholder="Rennes,paris,abidjan" formControlName="firstCtrl" required>
+                <input matInput placeholder="Rennes,paris,abidjan" formControlName="lieuCtrl" required>
             </mat-form-field> <br>
             <mat-form-field class="example-full-width">
                 <mat-label>Resume</mat-label>
-                 <textarea  matInput placeholder="resume..." formControlName="firstCtrl" required></textarea>
+                 <textarea  matInput placeholder="resume..." formControlName="resumeCtrl" required></textarea>
             </mat-form-field>
+            <!-- <input matInput formControlName="mailCtrl" type="hidden" value="{{userMail}}"> -->
             <div>
               <button mat-button matStepperNext>Suivant</button>
             </div>
@@ -123,7 +124,8 @@
           <p>Veuillez valider la creation du formulaire</p>
           <div>
             <button mat-button matStepperPrevious>Retour</button>
-            <button mat-raised-button  color="primary" [routerLink]="['/sondage-details']">Valider</button>
+            <!-- <button mat-raised-button  color="primary" [routerLink]="['/sondage-details']">Valider</button> -->
+            <button mat-raised-button  color="primary" (click)="creerSondage()">Valider</button>
           </div>
         </mat-step>
       </mat-horizontal-stepper>
