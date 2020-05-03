@@ -31,6 +31,7 @@ public class Sondage {
 	private long id;
 	private String titre;
 	private String lieu;
+	private String resume;
 	
 	@OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,mappedBy = "sondage")

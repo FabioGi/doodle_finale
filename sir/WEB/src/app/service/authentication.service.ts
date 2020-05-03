@@ -11,7 +11,7 @@ export class User {
 })
 export class AuthenticationService {
   constructor(private httpClient: HttpClient) {}
-// Provide username and password for authentication, and once authentication is successful, 
+// Provide username and password for authentication, and once authentication is successful,
 //store JWT token in session
   authenticate(username, password) {
     return this.httpClient
@@ -19,8 +19,10 @@ export class AuthenticationService {
       .pipe(
         map(userData => {
           sessionStorage.setItem("username", username);
+          sessionStorage.setItem("email", userData.user.email);
           let tokenStr = "Bearer " + userData.token;
           sessionStorage.setItem("token", tokenStr);
+       //   console.log(userData);
           return userData;
         })
       );
@@ -28,11 +30,18 @@ export class AuthenticationService {
 
   isUserLoggedIn() {
     let user = sessionStorage.getItem("username");
+    let userMail = sessionStorage.getItem("email");
     console.log(!(user === null));
+   // console.log(userMail);
     return !(user === null);
   }
 
   logOut() {
     sessionStorage.removeItem("username");
   }
+
+  // getUser(username) {
+  //     return this.httpClient.get<any>('http://localhost:8080/api/user/'+ username);
+  // }
+
 }

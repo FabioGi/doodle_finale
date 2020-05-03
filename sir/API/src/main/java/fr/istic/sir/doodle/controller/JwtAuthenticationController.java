@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.istic.sir.doodle.config.JwtTokenUtil;
+import fr.istic.sir.doodle.dao.IuserRepository;
 import fr.istic.sir.doodle.entities.Allergie;
 import fr.istic.sir.doodle.entities.Preference;
 import fr.istic.sir.doodle.entities.User;
@@ -38,6 +39,9 @@ public class JwtAuthenticationController {
 
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
+	
+	@Autowired
+	private IuserRepository userDao;
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
@@ -48,8 +52,10 @@ public class JwtAuthenticationController {
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
-
-		return ResponseEntity.ok(new JwtResponse(token));
+		User user = userDao.findByUsername(authenticationRequest.getUsername());
+		System.out.println(token);
+		
+		return ResponseEntity.ok(new JwtResponse(token,user));
 	}
 	
 //	@RequestMapping(value = "/register", method = RequestMethod.POST)

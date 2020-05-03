@@ -53,6 +53,7 @@ export class SondageComponent implements OnInit {
       this.secondFormGroup = this._formBuilder.group({
         secondCtrl: ['', Validators.required]
       });
+      const userMail = sessionStorage.getItem("email");
     }
 
     // events = [

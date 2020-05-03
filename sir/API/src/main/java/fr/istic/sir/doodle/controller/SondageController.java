@@ -59,10 +59,6 @@ public class SondageController {
 	IpreferenceRepository rPreference ;
 	@Autowired
 	ICreneauxReposirory rCreneau;
-	 @Autowired
-	 JavaMailSender emailSender;
-	 public static final String  FRIEND_EMAIL = "herve-fabrice.kadio@etudiant.univ-rennes1.fr";
-	 List<String> mails = new ArrayList<>();
 	
 	
 	// @GetMapping("/user/vote")
@@ -222,9 +218,16 @@ public class SondageController {
 	    @RequestMapping("/mail")
 	    public void sendSimpleEmail(@RequestBody List<String>mails){
 	          doodleService.sendMultipleMail(mails);
-	    	// doodleService.sendMailToUserAfterSondageCreated("hervefab007@gmail.com");
 	    }
+	    
+	    /**
+	     * find user
+	     */
 	
+     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET, produces = {"application/json"})
+	  User getUser(@PathVariable String username) {
+	    return rUser.findByUsername(username);
+	  } 
 	
 	
 }
