@@ -16,6 +16,10 @@ export class EmployeeComponent implements OnInit {
     this.httpClientService
       .getEmployees()
       .subscribe(response => this.handleSuccessfulResponse(response));
+
+    // this.httpClientService.getUsersMail().subscribe((data)=>{
+    //     console.log(data);
+    //   })
   }
 
   handleSuccessfulResponse(response) {

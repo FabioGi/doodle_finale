@@ -43,6 +43,7 @@ export class SondageComponent implements OnInit {
 
   @ViewChild('fruitInput',{static: false}) fruitInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto',{static: false}) matAutocomplete: MatAutocomplete;
+  mails = [];
   // @ViewChild('picker',) picker: any;
 
 
@@ -52,7 +53,6 @@ export class SondageComponent implements OnInit {
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
-    ss.getUsersMail().subscribe((mails)=>console.log(mails));
 
   }
 
@@ -67,6 +67,9 @@ export class SondageComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
         secondCtrl: ['', Validators.required]
       });
+
+    this.ss.getUsersMail().subscribe((mails)=>
+    this.mails = mails);
 
     }
 

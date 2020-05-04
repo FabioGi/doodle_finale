@@ -11,6 +11,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +43,7 @@ public class JwtAuthenticationController {
 	
 	@Autowired
 	private IuserRepository userDao;
+	
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
@@ -85,6 +87,11 @@ public class JwtAuthenticationController {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
+	
+	@RequestMapping(value = "/userss", method = RequestMethod.GET, produces = {"application/json"})
+	 ResponseEntity< List<User>> allUsers() {
+	    return ResponseEntity.ok(userDao.findAll());
+	  }
 }
 
 //@RequestMapping(value = "/adduser", method = RequestMethod.POST)
