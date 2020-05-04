@@ -155,23 +155,31 @@ public class DoodleService implements IdoodleService {
 		nSondage.setLieu(sondage.getLieu());
 		nSondage.setResume(sondage.getResume());
 		nSondage.setTitre(sondage.getTitre());
-		User user = rUser.findById(sondage.getUserMail()).get();
-		List pauseList  = Arrays.asList("12:00", "13:00", "14:00");
-		Boolean pause ;
+		User user = rUser.findByEmail(sondage.getUserMail());
+		System.out.println(sondage.getUserMail());
+		System.out.println(user.getName());
+		// List pauseList  = Arrays.asList("12:00", "13:00", "14:00");
+		// Boolean pause ;
 		nSondage.setUser(user);
 		// match a creneau to sondage
 		for(Creneaux cr: creneau ) {
-			pause = pauseList.contains(cr.getHeure_debut());
-			cr.setPause(pause);
-			cr.setValided(false);
+			// pause = pauseList.contains(cr.getHeure_debut());
+//			cr.setPause(pause);
+//			cr.setValided(false);
 			cr.setSondage(nSondage);
+			System.out.println(cr.getHeure_debut());
+			System.out.println(cr.getHeure_fin());
+			System.out.println(cr.getDate().toString());
 		}
+		nSondage.setDated(new ArrayList<>());
+		nSondage.getDated().addAll(creneau);
 		Sondage response = rSondage.save(nSondage);
 		
 		if(response!=null) {
 			sendMultipleMail(mails);
 		}
 		return response!=null;
+		// return true;
 		
 	}
 
@@ -255,8 +263,8 @@ public class DoodleService implements IdoodleService {
         /*message.setTo("kouassi-othniel.konan@etudiant.univ-rennes1.fr");*/
 
         // Send Message!
-        this.emailSender.send(message);
-        System.out.println("Email Sent to"+ mail);
+       this.emailSender.send(message);
+       // System.out.println("Email Sent to"+ mail);
 		
 	}
 

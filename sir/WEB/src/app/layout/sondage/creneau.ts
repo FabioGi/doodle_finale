@@ -1,12 +1,16 @@
 export class Creneau {
-  public dateReunion: Date;
-  public heureDebut: string;
-  public heureFin: string;
+  public date: Date;
+  public heure_debut: string;
+  public heure_fin: string;
+  public pause: boolean;
+  public valided = false;
 
-  constructor(src:Creneau) {
-      this.dateReunion = src.dateReunion;
-      this.heureDebut = src.heureDebut;
-      this.heureFin = src.heureFin;
+  constructor(src: Creneau) {
+      this.date = src.date;
+      this.heure_debut = src.heure_debut;
+      this.heure_fin = src.heure_fin;
+      this.pause = src.pause;
+      this.valided = src.valided;
   }
 
 }

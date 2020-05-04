@@ -2,6 +2,7 @@ package fr.istic.sir.doodle.entities;
 
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +41,7 @@ public class Creneaux {
 	
 	@Column(name="date_selectionnee")
 	@Temporal(TemporalType.DATE)
-	private Calendar date;
+	private Date date;
 	
 	// @Temporal(TemporalType.TIME)
 	private String heure_debut;

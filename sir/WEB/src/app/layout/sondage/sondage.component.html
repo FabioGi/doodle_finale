@@ -43,6 +43,9 @@
                         <ngx-mat-timepicker [formControl]="dateControl3"></ngx-mat-timepicker>
                     </td>
                     <td>
+                      <mat-checkbox [formControl]="checkedCtrl">Pause</mat-checkbox>
+                    </td>
+                    <td>
                         <button mat-raised-button  color="primary"(click)="addEvent()">Ajouter creneau</button>
                     </td>
 

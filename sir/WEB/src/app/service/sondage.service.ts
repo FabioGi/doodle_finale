@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { SondageDTO } from '../layout/sondage/sondageDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,10 @@ export class SondageService {
             return users;
         })
       );
+  }
+
+  createSondage(sondage:SondageDTO){
+      return this.httpClient.post<SondageDTO>(this.endpoint + '/addsondage', sondage);
   }
 
   // register(data) {

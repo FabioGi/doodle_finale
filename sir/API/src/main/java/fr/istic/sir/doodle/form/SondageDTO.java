@@ -4,7 +4,7 @@ public class SondageDTO {
 	private String lieu;
 	private String titre;  
 	private String resume;
-	public String userMail;
+	public String  userMails;
 	
 	public String getLieu() {
 		return lieu;
@@ -25,10 +25,10 @@ public class SondageDTO {
 		this.resume = resume;
 	}
 	public String getUserMail() {
-		return userMail;
+		return userMails;
 	}
 	public void setUserMail(String userMail) {
-		this.userMail = userMail;
+		this.userMails = userMail;
 	}
 
 }

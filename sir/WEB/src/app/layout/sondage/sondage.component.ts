@@ -8,10 +8,12 @@ import {map, startWith} from 'rxjs/operators';
 import { Creneau } from './creneau';
 import { Sondage } from './sondage';
 import { SondageService } from 'src/app/service/sondage.service';
+import { SondageDTO } from './sondageDTO';
 export interface SelctedDate {
      date: Date;
      start: Date;
      end: Date;
+     pause: boolean;
 }
 
 @Component({
@@ -28,6 +30,7 @@ export class SondageComponent implements OnInit {
   dateControl1 = new FormControl(null, [Validators.required]);
   dateControl2 = new FormControl(null, [Validators.required]);
   dateControl3 = new FormControl(null, [Validators.required]);
+  checkedCtrl  = new FormControl(false);
   public dateControlMinMax = new FormControl(new Date());
   events = [ ];
   displayedColumns: string[] = ['Date', 'Heure debut', 'Heure fin'];
@@ -48,6 +51,7 @@ export class SondageComponent implements OnInit {
   allmails = [];
   filteredMails: Observable<any[]>;
   allEmail: Observable<any>;
+  error: any;
   // @ViewChild('picker',) picker: any;
 
 
@@ -134,7 +138,8 @@ export class SondageComponent implements OnInit {
             this.events.push({
              date : new Date(this.dateControl1.value),
              start: new Date(this.dateControl2.value),
-             end  : new Date(this.dateControl3.value)
+             end  : new Date(this.dateControl3.value),
+             pause: this.checkedCtrl.value
             });
 
     }
@@ -142,6 +147,7 @@ export class SondageComponent implements OnInit {
     creerSondage() {
       const creneaux: Creneau[] = [];
       const sondage = new Sondage();
+      const sondageDTO = new SondageDTO();
       const lieu: string   = this.firstFormGroup.value.lieuCtrl   ? this.firstFormGroup.value.lieuCtrl   : null;
       const mail: string   = this.firstFormGroup.value.mailCtrl   ? this.firstFormGroup.value.mailCtrl   : null;
       const resume: string = this.firstFormGroup.value.resumeCtrl ? this.firstFormGroup.value.resumeCtrl : null;
@@ -149,13 +155,24 @@ export class SondageComponent implements OnInit {
 
       sondage.updateSondage(lieu, titre, resume, mail);
       this.events.forEach((creneau: SelctedDate) => {
-        creneaux.push({dateReunion: creneau.date,
-                      heureDebut: creneau.start.getHours().toString() + ':' + creneau.start.getMinutes().toString(),
-                      heureFin  : creneau.end.getHours().toString()   + ':' + creneau.end.getMinutes().toString()});
+        creneaux.push({date: creneau.date,
+                      heure_debut: creneau.start.getHours().toString() + ':' + creneau.start.getMinutes().toString(),
+                      heure_fin  : creneau.end.getHours().toString()   + ':' + creneau.end.getMinutes().toString(),
+                      pause: creneau.pause,
+                      valided: false });
       });
-      console.log(sondage);
-      console.log(creneaux);
-      // recuperer tous les emails de la bd
+      sondageDTO.createSondage(sondage, creneaux, this.mails);
+      this.ss.createSondage(sondageDTO).subscribe(
+        data => {
+          console.log(data);
+     },
+     error => {
+       // this.invalidLogin = true
+       this.error = error.message;
+       console.log( this.error);
+
+     });
+      console.log(sondageDTO);
     }
 
 }

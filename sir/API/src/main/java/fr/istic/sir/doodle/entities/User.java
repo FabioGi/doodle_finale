@@ -46,9 +46,9 @@ public class User {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Allergie> allergies;
 	
-	@OneToOne(mappedBy = "user")
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private Sondage sondage;
+	// @OneToOne(mappedBy = "user")
+//	@JsonProperty(access = Access.WRITE_ONLY)
+//	private Sondage sondage;
 	
 	private String name;
 	private String username;
