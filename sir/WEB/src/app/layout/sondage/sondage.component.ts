@@ -37,6 +37,7 @@ export class SondageComponent implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   fruitCtrl = new FormControl();
+  mailsCtrl = new FormControl();
   filteredFruits: Observable<string[]>;
   fruits: string[] = ['Lemon'];
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
@@ -44,16 +45,36 @@ export class SondageComponent implements OnInit {
   @ViewChild('fruitInput',{static: false}) fruitInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto',{static: false}) matAutocomplete: MatAutocomplete;
   mails = [];
+  allmails = [];
+  filteredMails: Observable<any[]>;
+  allEmail: Observable<any>;
   // @ViewChild('picker',) picker: any;
 
 
 
   constructor(private _formBuilder: FormBuilder,
               private ss: SondageService) {
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
+    // this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+    //   startWith(null),
+    //   map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
 
+    this.ss.getUsersMail().subscribe((data) => {
+     // this.allmails =  data;
+      this.filteredMails =  this.mailsCtrl.valueChanges.pipe(
+        startWith(null),
+        map((mail: string | null) => {
+           return mail ? this._filter(mail, data) : data.slice();
+        })
+      );
+    });
+
+
+    // this.filteredMails =  this.mailsCtrl.valueChanges.pipe(
+    //     startWith(null),
+    //     map((user) => {
+    //       return user ? this._filter(user) : this.mails.slice();
+    //     })
+    //   );
   }
 
   ngOnInit() {
@@ -67,10 +88,6 @@ export class SondageComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
         secondCtrl: ['', Validators.required]
       });
-
-    this.ss.getUsersMail().subscribe((mails)=>
-    this.mails = mails);
-
     }
 
     add(event: MatChipInputEvent): void {
@@ -79,7 +96,7 @@ export class SondageComponent implements OnInit {
 
       // Add our fruit
       if ((value || '').trim()) {
-        this.fruits.push(value.trim());
+        this.mails.push(value.trim());
       }
 
       // Reset the input value
@@ -87,27 +104,30 @@ export class SondageComponent implements OnInit {
         input.value = '';
       }
 
-      this.fruitCtrl.setValue(null);
+      this.mailsCtrl.setValue(null);
     }
 
     remove(fruit: string): void {
-      const index = this.fruits.indexOf(fruit);
+      const index = this.mails.indexOf(fruit);
 
       if (index >= 0) {
-        this.fruits.splice(index, 1);
+        this.mails.splice(index, 1);
       }
     }
 
     selected(event: MatAutocompleteSelectedEvent): void {
-      this.fruits.push(event.option.viewValue);
+      this.mails.push(event.option.viewValue);
+     // console.log(event.option.viewValue);
       this.fruitInput.nativeElement.value = '';
-      this.fruitCtrl.setValue(null);
+      this.mailsCtrl.setValue(null);
     }
 
-    private _filter(value: string): string[] {
+    private _filter(value, data) {
+      console.log(value);
       const filterValue = value.toLowerCase();
+      console.log(filterValue);
 
-      return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+      return data.filter(mail => mail.email.toLowerCase().indexOf(filterValue) === 0);
     }
 
     addEvent() {
