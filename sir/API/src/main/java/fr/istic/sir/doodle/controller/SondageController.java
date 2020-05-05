@@ -183,12 +183,6 @@ public class SondageController {
 		Objects.requireNonNull(creneaux);
 		Objects.requireNonNull(sondage);
 		Objects.requireNonNull(mails);
-		sondageForm.getCreneau().stream().forEach((data)->{
-			System.out.println(data.getDate());
-			System.out.println(data.getHeure_debut());
-			System.out.println(data.getHeure_fin());
-			System.out.println(data.isPause());
-		});
 		return doodleService.createSondage(sondage,creneaux,mails);
 	}
 	

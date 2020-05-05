@@ -42,6 +42,10 @@ public class Sondage {
     @JoinColumn(name = "id_user", referencedColumnName = "email")
     @ManyToOne
     private User user ;
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,mappedBy = "sondage")
+    private Collection<Invitation> invitations;
+    
 
 	
 }

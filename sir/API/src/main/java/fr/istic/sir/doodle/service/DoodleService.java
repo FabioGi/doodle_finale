@@ -1,12 +1,10 @@
 package fr.istic.sir.doodle.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.istic.sir.doodle.dao.ICreneauxReposirory;
 import fr.istic.sir.doodle.dao.IallergieRepository;
+import fr.istic.sir.doodle.dao.Iinvitation;
 import fr.istic.sir.doodle.dao.IpreferenceRepository;
 import fr.istic.sir.doodle.dao.IreunionRepository;
 import fr.istic.sir.doodle.dao.IsondageRepository;
@@ -24,13 +23,13 @@ import fr.istic.sir.doodle.dao.IuserRepository;
 import fr.istic.sir.doodle.dao.IvoteRepository;
 import fr.istic.sir.doodle.entities.Allergie;
 import fr.istic.sir.doodle.entities.Creneaux;
+import fr.istic.sir.doodle.entities.Invitation;
 import fr.istic.sir.doodle.entities.Preference;
 import fr.istic.sir.doodle.entities.Reunion;
 import fr.istic.sir.doodle.entities.Sondage;
 import fr.istic.sir.doodle.entities.User;
 import fr.istic.sir.doodle.entities.Vote;
 import fr.istic.sir.doodle.form.SondageDTO;
-import fr.istic.sir.doodle.form.UserDTO;
 import fr.istic.sir.doodle.service.interfaces.IdoodleService;
 /**
  * 
@@ -59,6 +58,8 @@ public class DoodleService implements IdoodleService {
 	ICreneauxReposirory rCreneau;
 	@Autowired
 	private JavaMailSender emailSender;
+	@Autowired
+	private Iinvitation rinvitation;
 	
 	Logger logger = Logger.getLogger("logger");
 	
@@ -158,19 +159,13 @@ public class DoodleService implements IdoodleService {
 		User user = rUser.findByEmail(sondage.getUserMail());
 		System.out.println(sondage.getUserMail());
 		System.out.println(user.getName());
-		// List pauseList  = Arrays.asList("12:00", "13:00", "14:00");
-		// Boolean pause ;
 		nSondage.setUser(user);
 		// match a creneau to sondage
 		for(Creneaux cr: creneau ) {
-			// pause = pauseList.contains(cr.getHeure_debut());
-//			cr.setPause(pause);
-//			cr.setValided(false);
 			cr.setSondage(nSondage);
-			System.out.println(cr.getHeure_debut());
-			System.out.println(cr.getHeure_fin());
-			System.out.println(cr.getDate().toString());
 		}
+		List<Invitation>invitations = sendInvitation(mails, nSondage) ;
+		nSondage.setInvitations(invitations);
 		nSondage.setDated(new ArrayList<>());
 		nSondage.getDated().addAll(creneau);
 		Sondage response = rSondage.save(nSondage);
@@ -181,6 +176,16 @@ public class DoodleService implements IdoodleService {
 		return response!=null;
 		// return true;
 		
+	}
+	public List<Invitation> sendInvitation(List<String>mails, Sondage sondage) {
+		List<Invitation>invitations = new ArrayList<>() ;
+		for(String mail: mails) {
+			Invitation invitation = new Invitation();
+			invitation.setSondage(sondage);
+			invitation.setGuest_mail(mail);
+			invitations.add(invitation);
+		}
+		return invitations;
 	}
 
 	@Transactional
