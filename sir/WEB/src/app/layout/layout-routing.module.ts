@@ -17,7 +17,7 @@ const routes: Routes = [
               loadChildren: './sondage/sondage.module#SondageModule'
             },
             {
-              path: 'sondage-details',
+              path: 'sondage-details/:id',
               loadChildren: './details-sondage/details-sondage.module#DetailsSondageModule'
             },
             // {

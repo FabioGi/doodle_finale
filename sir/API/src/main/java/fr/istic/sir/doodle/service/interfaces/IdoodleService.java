@@ -1,5 +1,6 @@
 package fr.istic.sir.doodle.service.interfaces;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -11,7 +12,6 @@ import fr.istic.sir.doodle.entities.Sondage;
 import fr.istic.sir.doodle.entities.User;
 import fr.istic.sir.doodle.entities.Vote;
 import fr.istic.sir.doodle.form.SondageDTO;
-import fr.istic.sir.doodle.form.UserDTO;
 
 public interface IdoodleService {
 	/**
@@ -136,6 +136,12 @@ public interface IdoodleService {
 	 * @return
 	 */
 	boolean createSondage(SondageDTO sondage, List<Creneaux> creneau, List<String> mails);
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Collection<Creneaux> selectCreneauOrderBySondage(long id);
 	
 
 }

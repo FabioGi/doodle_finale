@@ -6,12 +6,14 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
 import { DetailsSondageComponent } from './details-sondage.component';
 import { DetailsSondageRoutingModule } from './details-sondage.routing';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RouterModule } from '@angular/router';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     DetailsSondageRoutingModule,
     AngularMaterialModule,
     FormsModule,

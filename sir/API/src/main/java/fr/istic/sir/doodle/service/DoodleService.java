@@ -1,6 +1,7 @@
 package fr.istic.sir.doodle.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -285,6 +286,12 @@ public class DoodleService implements IdoodleService {
 	public List<String>getUsersMail(){
 		return rUser.findAll().stream().map(user -> user.getEmail())
 									   .collect(Collectors.toList());
+	}
+	
+	@Override
+	public Collection<Creneaux> selectCreneauOrderBySondage(long id) {
+		return rSondage.findById(id).get().getDated();
+		
 	}
 	
 }

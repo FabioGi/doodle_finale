@@ -1,13 +1,11 @@
 package fr.istic.sir.doodle.controller;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import fr.istic.sir.doodle.dao.ICreneauxReposirory;
 import fr.istic.sir.doodle.dao.IallergieRepository;
+import fr.istic.sir.doodle.dao.Iinvitation;
 import fr.istic.sir.doodle.dao.IpreferenceRepository;
 import fr.istic.sir.doodle.dao.IreunionRepository;
 import fr.istic.sir.doodle.dao.IsondageRepository;
@@ -26,16 +24,14 @@ import fr.istic.sir.doodle.dao.IuserRepository;
 import fr.istic.sir.doodle.dao.IvoteRepository;
 import fr.istic.sir.doodle.entities.Allergie;
 import fr.istic.sir.doodle.entities.Creneaux;
+import fr.istic.sir.doodle.entities.Invitation;
 import fr.istic.sir.doodle.entities.Preference;
 import fr.istic.sir.doodle.entities.Reunion;
 import fr.istic.sir.doodle.entities.Sondage;
 import fr.istic.sir.doodle.entities.User;
 import fr.istic.sir.doodle.entities.Vote;
-import fr.istic.sir.doodle.form.CreneauxForm;
-import fr.istic.sir.doodle.form.InscriptionForm;
 import fr.istic.sir.doodle.form.SondageDTO;
 import fr.istic.sir.doodle.form.SondageForm;
-import fr.istic.sir.doodle.form.UserDTO;
 import fr.istic.sir.doodle.service.interfaces.IdoodleService;
 
 @RestController
@@ -62,6 +58,8 @@ public class SondageController {
 	IpreferenceRepository rPreference ;
 	@Autowired
 	ICreneauxReposirory rCreneau;
+	@Autowired
+	Iinvitation invitation ;
 	
 	
 	// @GetMapping("/user/vote")
@@ -186,15 +184,15 @@ public class SondageController {
 		return doodleService.createSondage(sondage,creneaux,mails);
 	}
 	
-	@RequestMapping(value = "/addcreneau", method = RequestMethod.POST)
-	public boolean createCreneau(@RequestBody CreneauxForm creneauForm) {
-		Objects.requireNonNull(creneauForm);
-		Creneaux creneaux = creneauForm.getCreneaux();
-		int  idSondage = creneauForm.getIdSondage();
-		Objects.requireNonNull(creneaux);
-		Objects.requireNonNull(idSondage);
-		return doodleService.createCrenaux(idSondage, creneaux);
-	}
+//	@RequestMapping(value = "/addcreneau", method = RequestMethod.POST)
+//	public boolean createCreneau(@RequestBody CreneauxForm creneauForm) {
+//		Objects.requireNonNull(creneauForm);
+//		Creneaux creneaux = creneauForm.getCreneaux();
+//		int  idSondage = creneauForm.getIdSondage();
+//		Objects.requireNonNull(creneaux);
+//		Objects.requireNonNull(idSondage);
+//		return doodleService.createCrenaux(idSondage, creneaux);
+//	}
 	
 	@RequestMapping(value = "/addreunion", method = RequestMethod.POST)
 	 public boolean createMeeting(@RequestBody 	Reunion reunion) {
@@ -233,8 +231,24 @@ public class SondageController {
 	  User getUser(@PathVariable String username) {
 	    return rUser.findByUsername(username);
 	  } 
+     /**
+      * get sondage details order by id
+      */
 	
-	
+     @RequestMapping(value = "/sondage/{id}", method = RequestMethod.GET, produces = {"application/json"})
+	  Sondage getSondageOrderById(@PathVariable long id) {
+	    return rSondage.findById(id).get();
+	  } 
+     
+     @RequestMapping(value = "/creneaulist/{id}", method = RequestMethod.GET, produces = {"application/json"})
+	  Collection<Creneaux> getCreneauOrderBySondage(@PathVariable long id) {
+	    return doodleService.selectCreneauOrderBySondage(id);
+	  } 
+     
+     @RequestMapping(value = "/invitation/{id}", method = RequestMethod.GET, produces = {"application/json"})
+	  List<String> getInvitationOrderBySondage(@PathVariable long id) {
+	    return invitation.getInvitationList(id);
+	  } 
 }
 
 
