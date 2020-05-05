@@ -1,15 +1,15 @@
-
-<mat-card>
+<div *ngIf="reunion">
+  <mat-card>
     <div [fxFlex]="100" >
-       <mat-card fxFlexFill fxLayoutAlign="center center">
-         <h2>Sondage propose par Fabrice Kadio </h2>
+       <mat-card fxFlexFill fxLayoutAlign="center center" >
+         <h2>Sondage propose par {{reunion.user.name}} </h2>
        </mat-card>
     </div>
 
     <div [fxFlex]="100" >
         <mat-card-header fxFlexFill fxLayoutAlign="center center">
-            <mat-card-title>Reunion CGI</mat-card-title>
-            <mat-card-subtitle>Cession cevigne</mat-card-subtitle>
+            <mat-card-title>{{reunion.titre}}</mat-card-title>
+            <mat-card-subtitle>{{reunion.lieu}}</mat-card-subtitle>
           </mat-card-header>
     </div>
     <mat-card-content>
@@ -23,429 +23,32 @@
 
                     </td>
 
-                     <td>
-                        Mars
-                        24
-                        mardi
-                        14:00
-                        15:00
+                     <td *ngFor="let date of reunion.dated" >
+                        {{date.date | date:'fullDate'}} <br>
+                        {{date.heure_debut}} <br>
+                        {{date.heure_fin}}
                      </td>
-                     <td>
-                         Mars
-                         24
-                         mardi
-                         14:00
-                         15:00
-                      </td>
-                      <td>
-                         Mars
-                         24
-                         mardi
-                         14:00
-                         15:00
-                      </td>
-                      <td>
-                         Mars
-                         24
-                         mardi
-                         14:00
-                         15:00
-                      </td>
-                      <td>
-                          Mars
-                          24
-                          mardi
-                          14:00
-                          15:00
-                       </td>
-                       <td>
-                           Mars
-                           24
-                           mardi
-                           14:00
-                           15:00
-                        </td>
-                        <td>
-                           Mars
-                           24
-                           mardi
-                           14:00
-                           15:00
-                        </td>
-                        <td>
-                           Mars
-                           24
-                           mardi
-                           14:00
-                           15:00
-                        </td>
-
-                        <td>
-                            Mars
-                            24
-                            mardi
-                            14:00
-                            15:00
-                         </td>
-                         <td>
-                             Mars
-                             24
-                             mardi
-                             14:00
-                             15:00
-                          </td>
-                          <td>
-                             Mars
-                             24
-                             mardi
-                             14:00
-                             15:00
-                          </td>
-                          <td>
-                             Mars
-                             24
-                             mardi
-                             14:00
-                             15:00
-                          </td>
-                          <td>
-                             Mars
-                             24
-                             mardi
-                             14:00
-                             15:00
-                          </td>
-                          <td>
-                              Mars
-                              24
-                              mardi
-                              14:00
-                              15:00
-                           </td>
 
                   </tr>
                   <mat-divider></mat-divider>
                   <tr>
-                      <td> 3 Participants</td>
-                      <td>
+                      <td> {{invite.length}} Participants</td>
+                      <td *ngFor="let date of reunion.dated">
                           <mat-icon>check</mat-icon>0
-
                        </td>
-                       <td>
-                          <mat-icon>check</mat-icon>0
-
-                       </td>
-                       <td>
-                          <mat-icon>check</mat-icon>0
-
-                       </td>
-                       <td>
-                          <mat-icon>check</mat-icon>0
-
-                       </td>
-                       <td>
-                          <mat-icon>check</mat-icon>0
-
-                        </td>
-                        <td>
-                            <mat-icon>check</mat-icon>0
-
-                        </td>
-                        <td>
-                            <mat-icon>check</mat-icon>0
-
-                        </td>
-                        <td>
-                            <mat-icon>check</mat-icon>0
-
-                         </td>
-                         <td>
-                            <mat-icon>check</mat-icon>0
-
-                          </td>
-                          <td>
-                              <mat-icon>check</mat-icon>0
-
-                          </td>
-                          <td>
-                              <mat-icon>check</mat-icon>0
-
-                          </td>
-
-                          <td>
-                              <mat-icon>check</mat-icon>0
-
-                           </td>
-                           <td>
-                              <mat-icon>check</mat-icon>0
-
-                            </td>
-                            <td>
-                                <mat-icon>check</mat-icon>0
-
-                            </td>
-
-
 
                     </tr>
                     <mat-divider></mat-divider>
-                  <tr>
-                    <td> FABRICE KADIO</td>
-                    <td>
+                    <mat-divider></mat-divider>
+                  <tr *ngFor="let guest of invite">
+                    <td> {{guest}}</td>
+                    <td *ngFor="let date of reunion.dated">
                         <mat-checkbox></mat-checkbox>
 
                      </td>
-                     <td>
-                        <mat-checkbox></mat-checkbox>
-
-                     </td>
-                     <td>
-                        <mat-checkbox></mat-checkbox>
-
-                     </td>
-                     <td>
-                        <mat-checkbox></mat-checkbox>
-
-                     </td>
-                     <td>
-                        <mat-checkbox></mat-checkbox>
-
-                      </td>
-                      <td>
-                          <mat-checkbox></mat-checkbox>
-
-                      </td>
-                      <td>
-                          <mat-checkbox></mat-checkbox>
-
-                      </td>
-                      <td>
-                          <mat-checkbox></mat-checkbox>
-
-                       </td>
-                       <td>
-                          <mat-checkbox></mat-checkbox>
-
-                        </td>
-                        <td>
-                            <mat-checkbox></mat-checkbox>
-
-                        </td>
-                        <td>
-                            <mat-checkbox></mat-checkbox>
-
-                        </td>
-
-                        <td>
-                            <mat-checkbox></mat-checkbox>
-
-                         </td>
-                         <td>
-                            <mat-checkbox></mat-checkbox>
-
-                          </td>
-                          <td>
-                              <mat-checkbox></mat-checkbox>
-
-                          </td>
-
-
-
-                  </tr>
-                  <mat-divider></mat-divider>
-                  <tr>
-                      <td> Orthniel Konan</td>
-                      <td>
-                          <mat-checkbox></mat-checkbox>
-
-                       </td>
-                       <td>
-                          <mat-checkbox></mat-checkbox>
-
-                       </td>
-                       <td>
-                          <mat-checkbox></mat-checkbox>
-
-                       </td>
-                       <td>
-                          <mat-checkbox></mat-checkbox>
-
-                       </td>
-                       <td>
-                          <mat-checkbox></mat-checkbox>
-
-                        </td>
-                        <td>
-                            <mat-checkbox></mat-checkbox>
-
-                        </td>
-                        <td>
-                            <mat-checkbox></mat-checkbox>
-
-                        </td>
-                        <td>
-                            <mat-checkbox></mat-checkbox>
-
-                         </td>
-                         <td>
-                            <mat-checkbox></mat-checkbox>
-
-                          </td>
-                          <td>
-                              <mat-checkbox></mat-checkbox>
-
-                          </td>
-                          <td>
-                              <mat-checkbox></mat-checkbox>
-
-                          </td>
-
-                          <td>
-                              <mat-checkbox></mat-checkbox>
-
-                           </td>
-                           <td>
-                              <mat-checkbox></mat-checkbox>
-
-                            </td>
-                            <td>
-                                <mat-checkbox></mat-checkbox>
-
-                            </td>
-
-
-
+                     <mat-divider></mat-divider>
                     </tr>
                     <mat-divider></mat-divider>
-                    <tr>
-                        <td> AWA DOUMBIA</td>
-                        <td>
-                            <mat-checkbox></mat-checkbox>
-
-                         </td>
-                         <td>
-                            <mat-checkbox></mat-checkbox>
-
-                         </td>
-                         <td>
-                            <mat-checkbox></mat-checkbox>
-
-                         </td>
-                         <td>
-                            <mat-checkbox></mat-checkbox>
-
-                         </td>
-                         <td>
-                            <mat-checkbox></mat-checkbox>
-
-                          </td>
-                          <td>
-                              <mat-checkbox></mat-checkbox>
-
-                          </td>
-                          <td>
-                              <mat-checkbox></mat-checkbox>
-
-                          </td>
-                          <td>
-                              <mat-checkbox></mat-checkbox>
-
-                           </td>
-                           <td>
-                              <mat-checkbox></mat-checkbox>
-
-                            </td>
-                            <td>
-                                <mat-checkbox></mat-checkbox>
-
-                            </td>
-                            <td>
-                                <mat-checkbox></mat-checkbox>
-
-                            </td>
-
-                            <td>
-                                <mat-checkbox></mat-checkbox>
-
-                             </td>
-                             <td>
-                                <mat-checkbox></mat-checkbox>
-
-                              </td>
-                              <td>
-                                  <mat-checkbox></mat-checkbox>
-
-                              </td>
-
-
-
-                      </tr>
-                      <mat-divider></mat-divider>
-                      <tr>
-                          <td> MATHIEU KOUAKOU</td>
-                          <td>
-                              <mat-checkbox></mat-checkbox>
-
-                           </td>
-                           <td>
-                              <mat-checkbox></mat-checkbox>
-
-                           </td>
-                           <td>
-                              <mat-checkbox></mat-checkbox>
-
-                           </td>
-                           <td>
-                              <mat-checkbox></mat-checkbox>
-
-                           </td>
-                           <td>
-                              <mat-checkbox></mat-checkbox>
-
-                            </td>
-                            <td>
-                                <mat-checkbox></mat-checkbox>
-
-                            </td>
-                            <td>
-                                <mat-checkbox></mat-checkbox>
-
-                            </td>
-                            <td>
-                                <mat-checkbox></mat-checkbox>
-
-                             </td>
-                             <td>
-                                <mat-checkbox></mat-checkbox>
-
-                              </td>
-                              <td>
-                                  <mat-checkbox></mat-checkbox>
-
-                              </td>
-                              <td>
-                                  <mat-checkbox></mat-checkbox>
-
-                              </td>
-
-                              <td>
-                                  <mat-checkbox></mat-checkbox>
-
-                               </td>
-                               <td>
-                                  <mat-checkbox></mat-checkbox>
-
-                                </td>
-                                <td>
-                                    <mat-checkbox></mat-checkbox>
-
-                                </td>
-
-
-
-                        </tr>
-                        <mat-divider></mat-divider>
-
                 </tbody>
       </table>
 
@@ -457,3 +60,5 @@
     </mat-card-actions>
 
 </mat-card>
+
+</div>

@@ -10,7 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,6 +46,7 @@ public class Sondage {
     private User user ;
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,mappedBy = "sondage")
+    @JsonProperty(access = Access.WRITE_ONLY)
     private Collection<Invitation> invitations;
     
 

@@ -2,6 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
 import { DetailsSondageService } from 'src/app/service/details-sondage.service';
+import { switchMap, startWith, tap, filter, retry, take } from 'rxjs/operators';
+import { Reunion } from './reunion';
 
 @Component({
   selector: 'app-details-sondage',
@@ -10,17 +12,20 @@ import { DetailsSondageService } from 'src/app/service/details-sondage.service';
 })
 export class DetailsSondageComponent implements OnInit {
 
+  reunion: Reunion;
+  invite = ['Fabrice Kadio', 'yves kouassi','Orthnel konan'];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-   // private location: Location,
     private ds: DetailsSondageService
   ) { }
 
   ngOnInit() {
-    // this.composer = this.route.paramMap
-    // .switchMap((params: ParamMap) =>
-    //   this.composerService.getComposerWithKey(params.get('id')));
+    this.route.paramMap.pipe(switchMap((params: ParamMap) =>
+         this.ds.getSondageDetails(params.get('id')))).subscribe((data:Reunion) => {
+           this.reunion = {id: data.id,titre:data.titre,lieu:data.lieu,resume:data.resume,dated:data.dated, user: data.user };
+           console.log(data);
+         }) ;
   }
 
 }

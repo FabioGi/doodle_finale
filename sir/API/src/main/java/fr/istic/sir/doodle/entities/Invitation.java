@@ -7,6 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+// import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -21,6 +25,7 @@ public class Invitation  {
 	
 	@JoinColumn(name = "id_sondage", referencedColumnName = "id")
 	@ManyToOne
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private Sondage sondage;
 	private String guest_mail;
 	

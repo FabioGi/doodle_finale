@@ -163,7 +163,7 @@ export class SondageComponent implements OnInit {
       });
       sondageDTO.createSondage(sondage, creneaux, this.mails);
       this.ss.createSondage(sondageDTO).subscribe(
-        data => {
+        (data) => {
           console.log(data);
      },
      error => {

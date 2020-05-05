@@ -16,6 +16,9 @@ import { LogoutComponent } from './logout/logout.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BasicAuthHtppInterceptorService } from './service/basic-auth-interceptor.service';
+import { SondageService } from './service/sondage.service';
+import { DetailsSondageService } from './service/details-sondage.service';
+import { AuthenticationService } from './service/authentication.service';
 import { LayoutModule } from './layout/layout.module';
 export const createTranslateLoader = (http: HttpClient) => {
   /* for development
@@ -56,7 +59,11 @@ export const createTranslateLoader = (http: HttpClient) => {
       }
   })
   ],
-  providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
+  providers: [
+    SondageService,
+    DetailsSondageService,
+    AuthenticationService,
+     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

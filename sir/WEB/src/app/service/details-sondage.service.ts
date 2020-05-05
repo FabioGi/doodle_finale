@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DetailsSondageService {
-endpoint = 'http:/mail/localhost:8080/api';
+endpoint = 'http://localhost:8080/api';
 constructor(private httclient: HttpClient) { }
 
   getSondageDetails(id) {

@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +36,7 @@ public class Allergie implements Serializable {
 	private String name ;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_user", referencedColumnName = "email")
+	 @JsonProperty(access = Access.WRITE_ONLY)
 	private User user;
 
 }

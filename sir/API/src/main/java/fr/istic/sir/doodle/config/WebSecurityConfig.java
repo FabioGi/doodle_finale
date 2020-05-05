@@ -3,6 +3,7 @@ package fr.istic.sir.doodle.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -50,18 +51,46 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		// We don't need CSRF for this example
+//		// We don't need CSRF for this example
 		httpSecurity.csrf().disable()
-				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/authenticate", "/register","/api/*").permitAll().
-				// all other requests need to be authenticated
-				anyRequest().authenticated().and().
-				// make sure we use stateless session; session won't be used to
-				// store user's state.
-				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//				// dont authenticate this particular request
+//				.authorizeRequests().antMatchers("/authenticate", "/register","/api/*/*","/api/*").permitAll().
+//				// all other requests need to be authenticated
+//				anyRequest().authenticated().and().
+//				// make sure we use stateless session; session won't be used to
+//				// store user's state.
+//				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+//				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//
+//		// Add a filter to validate the tokens with every request
+//		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		
+		//dont authenticate this particular request
+		//all other urls can be access by any authenticated role
+		.authorizeRequests().antMatchers("/authenticate","/register")
+		.permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
+		.permitAll()
+
+		// or .hasRole("ADMIN")//allow h2 console access to admins only
+		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // all other requests need to be authenticated
+		// all other requests need to be authenticated
+		.anyRequest().authenticated()
+		//enable form login instead of basic login
+		.and().formLogin()
+
+		//.and().csrf().ignoringAntMatchers("/db/**")//don't apply CSRF protection to /h2-console
+		//allow use of frame to same origin urls
+		.and().headers().frameOptions().sameOrigin()
+		// make sure we use stateless session; session w on't be used to
+		// store user's state.
+		.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 }
+
+
+
+

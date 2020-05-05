@@ -37,8 +37,8 @@ import fr.istic.sir.doodle.service.interfaces.IdoodleService;
 @RestController
 @RequestMapping("/api")
  // @CrossOrigin(origins="http://localhost:5000") 
- @CrossOrigin("http://localhost:5000")
-// @CrossOrigin(origins = "*", allowedHeaders = "*")
+// @CrossOrigin("http://localhost:5000")
+  @CrossOrigin
 public class SondageController {
 	@Autowired
 	ICreneauxReposirory icreCreneauxReposirory;

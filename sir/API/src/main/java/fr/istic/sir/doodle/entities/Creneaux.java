@@ -54,15 +54,15 @@ public class Creneaux {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_sondage", referencedColumnName = "id")
-	// @JsonProperty(access = Access.WRITE_ONLY)
+    @JsonProperty(access = Access.WRITE_ONLY)
 	private Sondage sondage;
 	
 	@OneToOne(mappedBy = "dated")
-	// @JsonProperty(access = Access.WRITE_ONLY)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private Reunion reunion;
 	
 	@OneToMany(mappedBy = "date")
-	// @JsonProperty(access = Access.WRITE_ONLY)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private Collection<Vote> votes;
 	
 	@Column(name = "valided", nullable = false)
