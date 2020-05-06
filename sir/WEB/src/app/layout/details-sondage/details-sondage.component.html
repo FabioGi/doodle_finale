@@ -32,7 +32,7 @@
                   </tr>
                   <mat-divider></mat-divider>
                   <tr>
-                      <td> {{invite.length}} Participants</td>
+                      <td *ngIf="invitations" > {{invitations.length}} Participants</td>
                       <td *ngFor="let date of reunion.dated">
                           <mat-icon>check</mat-icon>0
                        </td>
@@ -40,11 +40,10 @@
                     </tr>
                     <mat-divider></mat-divider>
                     <mat-divider></mat-divider>
-                  <tr *ngFor="let guest of invite">
+                  <tr *ngFor="let guest of invitations">
                     <td> {{guest}}</td>
                     <td *ngFor="let date of reunion.dated">
-                        <mat-checkbox></mat-checkbox>
-
+                        <mat-checkbox *ngIf="guest == userMail" (click)="selectedDate(date)"  [(ngModel)]="date.valided"></mat-checkbox>
                      </td>
                      <mat-divider></mat-divider>
                     </tr>
@@ -54,7 +53,7 @@
 
     </mat-card-content>
     <mat-card-actions align="start">
-                <button mat-raised-button  color="warn"(click)="deleteEvent(event)">Valider le vote</button>
+                <button mat-raised-button  color="warn"(click)="validerVote()">Valider le vote</button>
                 <button mat-raised-button  color="warn"(click)="deleteEvent(event)">Valider sondage</button>
 
     </mat-card-actions>

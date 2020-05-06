@@ -12,12 +12,12 @@ constructor(private httclient: HttpClient) { }
       return this.httclient.get<any>(this.endpoint + '/sondage/' + id);
   }
 
-  getInvitationListOrderBySondage(id){
+  getInvitationListOrderBySondage(id) {
     return this.httclient.get<any>(this.endpoint + '/invitation/' + id);
   }
 
-  getCreneauOrderBySondage(id){
-    return this.httclient.get<any>(this.endpoint + '/creneaulist/' + id);
-  }
+  // getCreneauOrderBySondage(id){
+  //   return this.httclient.get<any>(this.endpoint + '/creneaulist/' + id);
+  // }
 
 }
