@@ -24,12 +24,12 @@ import fr.istic.sir.doodle.dao.IuserRepository;
 import fr.istic.sir.doodle.dao.IvoteRepository;
 import fr.istic.sir.doodle.entities.Allergie;
 import fr.istic.sir.doodle.entities.Creneaux;
-import fr.istic.sir.doodle.entities.Invitation;
 import fr.istic.sir.doodle.entities.Preference;
 import fr.istic.sir.doodle.entities.Reunion;
 import fr.istic.sir.doodle.entities.Sondage;
 import fr.istic.sir.doodle.entities.User;
 import fr.istic.sir.doodle.entities.Vote;
+import fr.istic.sir.doodle.form.CreneauxForm;
 import fr.istic.sir.doodle.form.SondageDTO;
 import fr.istic.sir.doodle.form.SondageForm;
 import fr.istic.sir.doodle.service.interfaces.IdoodleService;
@@ -200,9 +200,15 @@ public class SondageController {
 		return doodleService.createReunion(reunion);
 	}
 	
-	@RequestMapping(path = "/chosecreneau/{idUser}/{idCreneau}", method = RequestMethod.POST)
-	 public boolean choseDate(@PathVariable  String idUser, @PathVariable long idCreneau) {
-		return doodleService.choseDate(idUser, idCreneau);
+	@RequestMapping(path = "/chosecreneau", method = RequestMethod.POST)
+	 public void choseDate(@RequestBody CreneauxForm creneauForm) {
+		 String userMail = creneauForm.getEmail();
+		 List<Long>choix = creneauForm.getChoix();
+		 System.out.println(userMail);
+		 for(Long id: choix) {
+			 System.out.println(id);
+		 }
+		 doodleService.choseDate(userMail, choix);
 	}
 	
 	/****

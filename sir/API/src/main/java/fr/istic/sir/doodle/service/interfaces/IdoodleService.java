@@ -63,7 +63,7 @@ public interface IdoodleService {
 	 * @param vote the choice of user
 	 * @return true if user's choice is valided
 	 */
-	public boolean choseDate(String idUser,long idCreneau);
+	// public boolean choseDate(String idUser,long idCreneau);
 	
 	/***
 	 * Allow a user's master to create a creneau for a sondage
@@ -142,6 +142,9 @@ public interface IdoodleService {
 	 * @return
 	 */
 	Collection<Creneaux> selectCreneauOrderBySondage(long id);
+	
+	
+	void choseDate(String idUser, List<Long> idCreneaux);
 	
 
 }

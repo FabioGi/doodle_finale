@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
 import { DetailsSondageService } from 'src/app/service/details-sondage.service';
 import { switchMap, startWith, tap, filter, retry, take } from 'rxjs/operators';
 import { Reunion } from './reunion';
+import { Vote } from './Vote';
 
 @Component({
   selector: 'app-details-sondage',
@@ -49,7 +50,18 @@ export class DetailsSondageComponent implements OnInit {
   }
 
   validerVote() {
-    console.log(this.creneau);
+    if (this.creneau.length !== 0) {
+      const vote = new Vote(this.userMail, this.creneau);
+      console.log(vote);
+      this.ds.choseDateToMeeting(vote).subscribe(
+        (data)=>{
+           console.log(data);
+       },
+       error =>
+      {
+        console.log(error.message);
+      });
+    }
   }
 
 }

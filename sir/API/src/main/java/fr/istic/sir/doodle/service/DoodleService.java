@@ -192,13 +192,22 @@ public class DoodleService implements IdoodleService {
 	@Transactional
 	@Override
 	// ok
-	public boolean choseDate(String idUser,long idCreneau) {
+	public void choseDate(String idUser, List<Long>idCreneaux) {
 		User user = rUser.findById(idUser).get();
-		Creneaux creneau = rCreneau.findById((long) idCreneau).get();
-		Vote vote = new Vote();
-		vote.setDate(creneau);
-		vote.setUser(user);
-		return rVote.save(vote) != null;
+		for(Long id : idCreneaux) {
+			Creneaux creneau = rCreneau.findById((long) id).get();
+			Vote vote = new Vote();
+			vote.setDate(creneau);
+			vote.setUser(user);
+			rVote.save(vote);
+		}
+		// return true;
+	}
+//		Creneaux creneau = rCreneau.findById((long) idCreneau).get();
+//		Vote vote = new Vote();
+//		vote.setDate(creneau);
+//		vote.setUser(user);
+//		return rVote.save(vote) != null;
 		
 //		Creneaux creneau2 = rCreneau.findById((long) 2).get();
 //		Vote vote2 = new Vote();
@@ -218,7 +227,7 @@ public class DoodleService implements IdoodleService {
 //		vote4.setUser(user2);
 //		rVote.save(vote4);
 		
-	}
+	// }
 
 	@Transactional
 	@Override
@@ -293,6 +302,12 @@ public class DoodleService implements IdoodleService {
 		return rSondage.findById(id).get().getDated();
 		
 	}
+
+//	@Override
+//	public boolean choseDate(String idUser, long idCreneau) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 	
 }
 

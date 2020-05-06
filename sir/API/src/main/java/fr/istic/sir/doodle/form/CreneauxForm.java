@@ -1,25 +1,22 @@
 package fr.istic.sir.doodle.form;
 
-import fr.istic.sir.doodle.entities.Creneaux;
+import java.util.List;
 
 public class CreneauxForm {
 
-	private int  idSondage;
-	private Creneaux creneaux;
-	
-	public CreneauxForm() {
+	private String email;
+	private List<Long>choix;
+	public String getEmail() {
+		return email;
 	}
-	public int getIdSondage() {
-		return idSondage;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public void setIdSondage(int idSondage) {
-		this.idSondage = idSondage;
+	public List<Long> getChoix() {
+		return choix;
 	}
-	public Creneaux getCreneaux() {
-		return creneaux;
-	}
-	public void setCreneaux(Creneaux creneaux) {
-		this.creneaux = creneaux;
+	public void setChoix(List<Long> choix) {
+		this.choix = choix;
 	}
 
 }
