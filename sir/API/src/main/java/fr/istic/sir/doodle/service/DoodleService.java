@@ -229,16 +229,16 @@ public class DoodleService implements IdoodleService {
 		
 	// }
 
-	@Transactional
-	@Override
+//	@Transactional
+//	@Override
 	// ok
-	public boolean createCrenaux(int idSondage, Creneaux creneau ) {
-		Sondage sondage = rSondage.findById(new Long(idSondage)).get();
-		creneau.setSondage(sondage);
-		// gestion de la pause
-		// if(creneau.getHeure_debut() >= 12h && creneau.getHeure_debut()  creneau.setPause(true) .)
-		return rCreneau.save(creneau)!= null;
-	}
+//	public boolean createCrenaux(int idSondage, Creneaux creneau ) {
+//		Sondage sondage = rSondage.findById(new Long(idSondage)).get();
+//		creneau.setSondage(sondage);
+//		// gestion de la pause
+//		// if(creneau.getHeure_debut() >= 12h && creneau.getHeure_debut()  creneau.setPause(true) .)
+//		return rCreneau.save(creneau)!= null;
+//	}
 
 	@Transactional
 	@Override
@@ -259,8 +259,8 @@ public class DoodleService implements IdoodleService {
 
 	@Override
 	// ok
-	public List<Creneaux> getChoiceToUserAfterSondage(Sondage s, User u) {
-		return rCreneau.getUserChoiceForSondage(s, u);
+	public List<Long> getChoiceToUserAfterSondage(long id, String email) {
+		return rCreneau.getUserChoiceForSondage(id, email);
 	}
 
 	@Override
@@ -301,6 +301,11 @@ public class DoodleService implements IdoodleService {
 	public Collection<Creneaux> selectCreneauOrderBySondage(long id) {
 		return rSondage.findById(id).get().getDated();
 		
+	}
+
+	@Override
+	public int countUserOrderBySlotinCurrentSurvey(long idSlot, long idSurvey) {
+		return rVote.CountSlotOrderBySurvey(idSlot, idSurvey);
 	}
 
 //	@Override

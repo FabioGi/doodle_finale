@@ -49,6 +49,5 @@ public class Sondage {
     @JsonProperty(access = Access.WRITE_ONLY)
     private Collection<Invitation> invitations;
     
-
 	
 }

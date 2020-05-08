@@ -72,7 +72,7 @@ public interface IdoodleService {
 	 * @return true if it's created
 	 */
 	
-	boolean createCrenaux(int idSondage, Creneaux creneau );
+	// boolean createCrenaux(int idSondage, Creneaux creneau );
 	
 	/**
 	 * selection un crenaux à la fin d'un sondage
@@ -86,7 +86,7 @@ public interface IdoodleService {
 	 * @param u user who participed to a sondage
 	 * @return the dates which have been chosen by a user after a sondage
 	 */
-	public List<Creneaux> getChoiceToUserAfterSondage(Sondage s, User u);
+	public List<Long> getChoiceToUserAfterSondage(long id, String email);
 	
 	/**
 	 *  create a user with his preferences and allergies
@@ -143,8 +143,20 @@ public interface IdoodleService {
 	 */
 	Collection<Creneaux> selectCreneauOrderBySondage(long id);
 	
-	
+	/**
+	 * 
+	 * @param idUser
+	 * @param idCreneaux
+	 */
 	void choseDate(String idUser, List<Long> idCreneaux);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	int countUserOrderBySlotinCurrentSurvey(long idSlot,long idSurvey );
+	
+	
 	
 
 }

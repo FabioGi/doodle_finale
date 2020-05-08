@@ -18,6 +18,10 @@ export class DetailsSondageComponent implements OnInit {
   invitations: any;
   userMail: string;
   creneau = [];
+  test = [88,89];
+  result: boolean;
+  counter: any;
+  idSurvey: string;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -38,11 +42,18 @@ export class DetailsSondageComponent implements OnInit {
            console.log(data);
          }) ;
 
+    this.route.params.subscribe((params: Params) => {
+      this.idSurvey = params['id'];
+  });
+
   }
 
+ //
   selectedDate(date) {
     if (!date.valided) {
       this.creneau.push(date.id);
+      // this.isCheked(date.id);
+
     } else {
       const index = this.creneau.indexOf(date.id);
       if (index > - 1) { this.creneau.splice(index, 1);  }
@@ -54,14 +65,23 @@ export class DetailsSondageComponent implements OnInit {
       const vote = new Vote(this.userMail, this.creneau);
       console.log(vote);
       this.ds.choseDateToMeeting(vote).subscribe(
-        (data)=>{
+        (data) => {
            console.log(data);
        },
-       error =>
-      {
+       error => {
         console.log(error.message);
       });
     }
+  }
+
+  // isCheked(id) {
+  //   this.result = this.test.includes(id);
+  // }
+
+  getCounterSlot(slot, survey) {
+      this.ds.countSlotOrderByUser(slot, survey).subscribe((count) => {
+            this.counter = count;
+      });
   }
 
 }

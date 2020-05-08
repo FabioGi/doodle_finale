@@ -117,10 +117,8 @@ public class SondageController {
 	}
 	
 	@RequestMapping(path = "/responses/{idUser}/{idSondage}", method = RequestMethod.GET, produces = {"application/json"})
-	List<Creneaux> getChoiceToUserAfterSondage(@PathVariable String idUser, @PathVariable long idSondage){
-		User u = rUser.findById(idUser).get();
-		Sondage s = rSondage.findById(new Long(idSondage)).get();
-		return doodleService.getChoiceToUserAfterSondage(s, u);
+	List<Long> getChoiceToUserAfterSondage(@PathVariable String idUser, @PathVariable long idSondage){
+		return doodleService.getChoiceToUserAfterSondage(idSondage, idUser);
 	}
 	
 	@RequestMapping(value = "/attendlist", method = RequestMethod.GET, produces = {"application/json"})
@@ -204,10 +202,6 @@ public class SondageController {
 	 public void choseDate(@RequestBody CreneauxForm creneauForm) {
 		 String userMail = creneauForm.getEmail();
 		 List<Long>choix = creneauForm.getChoix();
-		 System.out.println(userMail);
-		 for(Long id: choix) {
-			 System.out.println(id);
-		 }
 		 doodleService.choseDate(userMail, choix);
 	}
 	
@@ -255,6 +249,13 @@ public class SondageController {
 	  List<String> getInvitationOrderBySondage(@PathVariable long id) {
 	    return invitation.getInvitationList(id);
 	  } 
+     
+    @RequestMapping(path = "/countslot/{idSlot}/{idSurvey}", method = RequestMethod.GET, produces = {"application/json"})
+ 	int getChoiceToUserAfterSondage(@PathVariable long idSlot, @PathVariable long idSurvey){
+ 		return doodleService.countUserOrderBySlotinCurrentSurvey(idSlot, idSurvey);
+ 	}
+     
+    
 }
 
 

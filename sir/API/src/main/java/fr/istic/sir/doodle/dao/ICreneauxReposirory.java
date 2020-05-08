@@ -17,8 +17,8 @@ public interface ICreneauxReposirory extends  JpaRepository<Creneaux, Long> {
 	@Query("SELECT c FROM Creneaux c WHERE c.valided = ?1")
 	Creneaux findCrenauByStatus(Boolean status);
 	
-	@Query("Select c from Creneaux c join c.votes v where v.date.sondage = ?1 and v.user = ?2 ")
-	List<Creneaux> getUserChoiceForSondage(Sondage s, User u);
+	@Query("Select c.id from Creneaux c join c.votes v where v.date.sondage.id = ?1 and v.user.email = ?2 ")
+	List<Long> getUserChoiceForSondage(long id_s, String email);
 	
 	@Query("Select c from Creneaux c join c.votes v where v.date.sondage = ?1")
 	List<Creneaux> getAllResponseForSondage(Sondage s);

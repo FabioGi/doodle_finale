@@ -27,8 +27,12 @@ constructor(private httpClient: HttpClient) { }
        .post<any>('http://localhost:8080/api/chosecreneau', vote);
   }
 
-  // getCreneauOrderBySondage(id){
-  //   return this.httclient.get<any>(this.endpoint + '/creneaulist/' + id);
-  // }
+  countSlotOrderByUser(slot,survey){
+    return this.httpClient.get<any>('http://localhost:8080/api/countslot/' + slot + '/' + survey );
+  }
+
+  getUserChoice(idSlot,email){
+      return this.httpClient.get<number[]>('http://localhost:8080/api/responses/' + email + '/' + idSlot );
+  }
 
 }
