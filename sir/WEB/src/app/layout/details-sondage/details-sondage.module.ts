@@ -10,6 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { SlotComponent } from './slot/slot.component';
 import { CheckerComponent } from './checker/checker.component';
+import { ChartsModule as Ng2Charts } from 'ng2-charts';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
@@ -24,6 +25,7 @@ import { CheckerComponent } from './checker/checker.component';
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
+    Ng2Charts,
     FlexLayoutModule.withConfig({addFlexToParent: false})
   ],
   providers: [

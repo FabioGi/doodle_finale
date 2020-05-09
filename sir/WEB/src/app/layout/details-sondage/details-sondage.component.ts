@@ -24,6 +24,10 @@ export class DetailsSondageComponent implements OnInit {
   result: any;
   response: any;
   mySubscription: any;
+  public pieChartLabels: Date[] = [] ;
+  public pieChartData: number[] = [1,1,1,1,1,1,1,1,1];
+  public pieChartType: string;
+  totale = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -35,7 +39,6 @@ export class DetailsSondageComponent implements OnInit {
 
     this.mySubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
         this.router.navigated = false;
       }
     });
@@ -46,7 +49,12 @@ export class DetailsSondageComponent implements OnInit {
     this.route.paramMap.pipe(switchMap((params: ParamMap) =>
          this.ds.getSondageDetails(params.get('id')))).subscribe((data:Reunion) => {
            this.reunion = {id: data.id,titre:data.titre,lieu:data.lieu,resume:data.resume,dated:data.dated, user: data.user };
-           console.log(data);
+           console.log(data.dated);
+           data.dated.forEach((data)=>{
+            this.pieChartLabels.push(data.date  );
+           })
+           console.log( this.pieChartLabels);
+           // this.pieChartLabels = data.dated.
          }) ;
 
     this.route.paramMap.pipe(switchMap((params: ParamMap) =>
@@ -59,6 +67,19 @@ export class DetailsSondageComponent implements OnInit {
       this.idSurvey = params['id'];
   });
 
+    this.pieChartType = 'pie';
+  }
+
+  getTotal(total){
+    // console.log(total);
+    this.totale.push(total);
+    console.log(this.pieChartData);
+    this.pieChartData = this.totale;
+  }
+  ngOnDestroy() {
+    if (this.mySubscription) {
+      this.mySubscription.unsubscribe();
+    }
   }
 
  //
@@ -102,10 +123,5 @@ export class DetailsSondageComponent implements OnInit {
             this.counter = count;
       });
   }
-
-  // isCheked(id) {
-  //   this.result = this.choice.includes(id);
-  //   console.log(this.result);
-  // }
 
 }
