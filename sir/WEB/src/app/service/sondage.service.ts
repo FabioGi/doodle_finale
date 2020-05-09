@@ -29,7 +29,7 @@ export class SondageService {
   }
 
   createSondage(sondage:SondageDTO){
-      return this.httpClient.post<SondageDTO>(this.endpoint + '/addsondage', sondage);
+      return this.httpClient.post<any>(this.endpoint + '/addsondage', sondage);
   }
 
   // register(data) {

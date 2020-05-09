@@ -4,6 +4,9 @@
        <mat-card fxFlexFill fxLayoutAlign="center center" >
          <h2>Sondage propose par {{reunion.user.name}} </h2>
        </mat-card>
+       <mat-card fxFlexFill fxLayoutAlign="center center"*ngIf="disableSurvey.length != 0" >
+        <h2> Le sondage est clos la date retenue pour la reunion est : {{disableSurvey[0].date | date:'fullDate'}} </h2>
+      </mat-card>
     </div>
 
     <div [fxFlex]="100" >
@@ -51,15 +54,22 @@
                      <mat-divider></mat-divider>
                     </tr>
                     <mat-divider></mat-divider>
+                    <tr>
+                      <td>
+                        <button mat-raised-button  color="warn"(click)="validerVote()" [disabled]="creneau.length == 0">Valider le vote</button>
+                      </td>
+                      <td *ngFor="let date of reunion.dated">
+                        <button *ngIf="reunion.user.email == userMail"  mat-raised-button  color="warn"(click)="validedSurvey(date.id)" [disabled]="disableSurvey.length != 0  ">Valider sondage</button>
+                      </td>
+                    </tr>
+                    <mat-divider></mat-divider>
                 </tbody>
       </table>
 
     </mat-card-content>
-    <mat-card-actions align="start">
+    <!-- <mat-card-actions align="start">
                 <button mat-raised-button  color="warn"(click)="validerVote()" [disabled]="creneau.length == 0">Valider le vote</button>
-                <button mat-raised-button  color="warn"(click)="deleteEvent(event)">Valider sondage</button>
-
-    </mat-card-actions>
+    </mat-card-actions> -->
 
     <div [fxFlex]="100" >
       <mat-card >

@@ -35,7 +35,7 @@ public interface IdoodleService {
 	 * valid a sondage
 	 * @return true 
 	 */
-	public void validedSondage(long idCreneau);
+	public Creneaux validedSondage(long idCreneau, List<String> emails);
 	/**
 	 * envoyer un mails aux utilisateurs avec la date retenue pour la reunion
 	 */
@@ -135,7 +135,7 @@ public interface IdoodleService {
 	 * @param mails
 	 * @return
 	 */
-	boolean createSondage(SondageDTO sondage, List<Creneaux> creneau, List<String> mails);
+	Sondage createSondage(SondageDTO sondage, List<Creneaux> creneau, List<String> mails);
 	/**
 	 * 
 	 * @param id

@@ -9,6 +9,7 @@ import { Creneau } from './creneau';
 import { Sondage } from './sondage';
 import { SondageService } from 'src/app/service/sondage.service';
 import { SondageDTO } from './sondageDTO';
+import { Router } from '@angular/router';
 export interface SelctedDate {
      date: Date;
      start: Date;
@@ -52,12 +53,14 @@ export class SondageComponent implements OnInit {
   filteredMails: Observable<any[]>;
   allEmail: Observable<any>;
   error: any;
+  response: any;
   // @ViewChild('picker',) picker: any;
 
 
 
   constructor(private _formBuilder: FormBuilder,
-              private ss: SondageService) {
+              private ss: SondageService,
+              private router: Router) {
     // this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
     //   startWith(null),
     //   map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
@@ -164,15 +167,17 @@ export class SondageComponent implements OnInit {
       sondageDTO.createSondage(sondage, creneaux, this.mails);
       this.ss.createSondage(sondageDTO).subscribe(
         (data) => {
+          // this.response = data;
           console.log(data);
+          this.router.navigate(['/sondage-details/' + data.id]);
      },
      error => {
        // this.invalidLogin = true
        this.error = error.message;
        console.log( this.error);
-
      });
-      console.log(sondageDTO);
+     // console.log(sondageDTO);
+      this.response = true;
     }
 
 }

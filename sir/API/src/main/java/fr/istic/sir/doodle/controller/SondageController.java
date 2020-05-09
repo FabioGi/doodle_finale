@@ -32,6 +32,7 @@ import fr.istic.sir.doodle.entities.Vote;
 import fr.istic.sir.doodle.form.CreneauxForm;
 import fr.istic.sir.doodle.form.SondageDTO;
 import fr.istic.sir.doodle.form.SondageForm;
+import fr.istic.sir.doodle.form.ValidedSondageForm;
 import fr.istic.sir.doodle.service.interfaces.IdoodleService;
 
 @RestController
@@ -171,7 +172,7 @@ public class SondageController {
 //	}
 	
 	@RequestMapping(value = "/addsondage", method = RequestMethod.POST)
-	public boolean createSondage(@RequestBody SondageForm sondageForm) {
+	public Sondage createSondage(@RequestBody SondageForm sondageForm) {
 		Objects.requireNonNull(sondageForm);
 		SondageDTO sondage = sondageForm.getSondage();
 		List<Creneaux> creneaux = sondageForm.getCreneau();
@@ -208,9 +209,11 @@ public class SondageController {
 	/****
 	 * PUT REQUEST FOR API
 	 */
-	@RequestMapping(path = "/validesondage/{id}", method = RequestMethod.PUT)
-	public void validedSondage(@PathVariable  long id) {
-		doodleService.validedSondage(id);
+	@RequestMapping(path = "/validesondage", method = RequestMethod.PUT)
+	public Creneaux validedSondage(@RequestBody ValidedSondageForm vs ) {
+		long idCreneau = vs.getId();
+		List<String> emails = vs.getEmails();
+		return doodleService.validedSondage(idCreneau,emails);
 	}
 	
 	/**
@@ -255,7 +258,6 @@ public class SondageController {
  		return doodleService.countUserOrderBySlotinCurrentSurvey(idSlot, idSurvey);
  	}
      
-    
 }
 
 

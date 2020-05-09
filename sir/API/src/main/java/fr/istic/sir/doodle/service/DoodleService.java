@@ -72,10 +72,11 @@ public class DoodleService implements IdoodleService {
 	@Transactional
 	@Override
 	// ok
-	public void validedSondage(long idCreneau) {
+	public Creneaux validedSondage(long idCreneau, List<String> emails) {
 		Creneaux creneau = rCreneau.findById(new Long(idCreneau)).get();
 		creneau.setValided(true);
-		// this.sendMailertoUsersWithDateOfMeeting();
+		this.sendMultipleMail(emails);
+		return creneau;
 	}
 	
 	@Override
@@ -151,15 +152,13 @@ public class DoodleService implements IdoodleService {
 	
 	@Transactional
 	@Override
-	public boolean createSondage(SondageDTO sondage,List<Creneaux> creneau, List<String>mails) {
+	public Sondage createSondage(SondageDTO sondage,List<Creneaux> creneau, List<String>mails) {
 		// create sondage
 		Sondage nSondage = new Sondage();
 		nSondage.setLieu(sondage.getLieu());
 		nSondage.setResume(sondage.getResume());
 		nSondage.setTitre(sondage.getTitre());
 		User user = rUser.findByEmail(sondage.getUserMail());
-		System.out.println(sondage.getUserMail());
-		System.out.println(user.getName());
 		nSondage.setUser(user);
 		// match a creneau to sondage
 		for(Creneaux cr: creneau ) {
@@ -174,7 +173,7 @@ public class DoodleService implements IdoodleService {
 		if(response!=null) {
 			sendMultipleMail(mails);
 		}
-		return response!=null;
+		return nSondage;
 		// return true;
 		
 	}

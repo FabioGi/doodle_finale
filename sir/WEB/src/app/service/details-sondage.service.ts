@@ -35,4 +35,8 @@ constructor(private httpClient: HttpClient) { }
       return this.httpClient.get<number[]>('http://localhost:8080/api/responses/' + email + '/' + idSlot );
   }
 
+  validedSurvey(data){
+    return this.httpClient.put<any>('http://localhost:8080/api/validesondage', data);
+  }
+
 }

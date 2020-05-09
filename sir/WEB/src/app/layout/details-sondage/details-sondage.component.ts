@@ -1,3 +1,4 @@
+
 // import { DetailsSondageService } from './../../../../.history/src/app/service/details-sondage.service_20200505030741';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params, ParamMap, NavigationEnd } from '@angular/router';
@@ -5,6 +6,7 @@ import { DetailsSondageService } from 'src/app/service/details-sondage.service';
 import { switchMap, startWith, tap, filter, retry, take } from 'rxjs/operators';
 import { Reunion } from './reunion';
 import { Vote } from './Vote';
+import { ValideSurvey } from './ValideSurvey';
 
 @Component({
   selector: 'app-details-sondage',
@@ -28,6 +30,8 @@ export class DetailsSondageComponent implements OnInit {
   public pieChartData: number[] = [1,1,1,1,1,1,1,1,1];
   public pieChartType: string;
   totale = [];
+  creneauSelected: any;
+  disableSurvey = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -49,12 +53,10 @@ export class DetailsSondageComponent implements OnInit {
     this.route.paramMap.pipe(switchMap((params: ParamMap) =>
          this.ds.getSondageDetails(params.get('id')))).subscribe((data:Reunion) => {
            this.reunion = {id: data.id,titre:data.titre,lieu:data.lieu,resume:data.resume,dated:data.dated, user: data.user };
-           console.log(data.dated);
+           this.disableSurvey = data.dated.filter( data => data.valided === true);
            data.dated.forEach((data)=>{
             this.pieChartLabels.push(data.date  );
-           })
-           console.log( this.pieChartLabels);
-           // this.pieChartLabels = data.dated.
+           });
          }) ;
 
     this.route.paramMap.pipe(switchMap((params: ParamMap) =>
@@ -122,6 +124,20 @@ export class DetailsSondageComponent implements OnInit {
       this.ds.countSlotOrderByUser(slot, survey).subscribe((count) => {
             this.counter = count;
       });
+  }
+
+  validedSurvey(id){
+    if(this.disableSurvey.length == 0){
+      const  valideSurvey = new ValideSurvey(id, this.invitations);
+      this.ds.validedSurvey(valideSurvey).subscribe((data)=>{
+              console.log('sondage valide avec succes');
+              this.creneauSelected = data;
+        },
+        error => {
+          console.log(error.message);
+        });
+    }
+   // this.router.navigate(['/sondage-details/' + this.idSurvey]);
   }
 
 }
