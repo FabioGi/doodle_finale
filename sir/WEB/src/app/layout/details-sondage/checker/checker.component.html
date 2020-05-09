@@ -1,2 +1,3 @@
 
-<mat-checkbox  [(ngModel)]="result" [disabled]=true></mat-checkbox>
+<mat-checkbox *ngIf="email == userMail"  [(ngModel)]="result" [disabled]="disable" (click)="ischecked(result)"></mat-checkbox>
+<mat-checkbox *ngIf="email != userMail"  [(ngModel)]="result" [disabled]=true></mat-checkbox>

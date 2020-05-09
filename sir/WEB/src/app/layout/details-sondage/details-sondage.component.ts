@@ -1,6 +1,6 @@
 // import { DetailsSondageService } from './../../../../.history/src/app/service/details-sondage.service_20200505030741';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, Params, ParamMap, NavigationEnd } from '@angular/router';
 import { DetailsSondageService } from 'src/app/service/details-sondage.service';
 import { switchMap, startWith, tap, filter, retry, take } from 'rxjs/operators';
 import { Reunion } from './reunion';
@@ -18,15 +18,28 @@ export class DetailsSondageComponent implements OnInit {
   invitations: any;
   userMail: string;
   creneau = [];
-  test = [88,89];
-  result: boolean;
   counter: any;
   idSurvey: string;
+  disable: boolean = false;
+  result: any;
+  response: any;
+  mySubscription: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private ds: DetailsSondageService
-  ) { }
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+      }
+    });
+  }
 
   ngOnInit() {
     this.userMail = sessionStorage.getItem('email');
@@ -49,15 +62,22 @@ export class DetailsSondageComponent implements OnInit {
   }
 
  //
-  selectedDate(date) {
-    if (!date.valided) {
-      this.creneau.push(date.id);
-      // this.isCheked(date.id);
+  selectedDate(date,email) {
+    console.log(this.response);
+    if (this.userMail === email) {
+      if (!this.response) {
+        this.creneau.push(date.id);
+        // this.isCheked(date.id);
 
-    } else {
-      const index = this.creneau.indexOf(date.id);
-      if (index > - 1) { this.creneau.splice(index, 1);  }
+      } else {
+        const index = this.creneau.indexOf(date.id);
+        if (index > - 1) { this.creneau.splice(index, 1);  }
+      }
+      console.log( this.creneau);
     }
+  }
+  onChange(val){
+    this.response = val;
   }
 
   validerVote() {
@@ -72,16 +92,20 @@ export class DetailsSondageComponent implements OnInit {
         console.log(error.message);
       });
     }
+   // this.disable = true;
+    this.router.navigate(['/sondage-details/' + this.idSurvey]);
   }
 
-  // isCheked(id) {
-  //   this.result = this.test.includes(id);
-  // }
 
   getCounterSlot(slot, survey) {
       this.ds.countSlotOrderByUser(slot, survey).subscribe((count) => {
             this.counter = count;
       });
   }
+
+  // isCheked(id) {
+  //   this.result = this.choice.includes(id);
+  //   console.log(this.result);
+  // }
 
 }

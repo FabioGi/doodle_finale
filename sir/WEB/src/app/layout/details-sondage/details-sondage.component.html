@@ -44,9 +44,9 @@
                   <tr *ngFor="let guest of invitations">
                     <td> {{guest}}</td>
                     <td *ngFor="let date of reunion.dated">
-                        <mat-checkbox *ngIf="guest == userMail" (click)="selectedDate(date)" [(ngModel)]="date.valided"></mat-checkbox>
+                        <!-- <mat-checkbox *ngIf="guest == userMail" (click)="selectedDate(date)" [(ngModel)]="date.valided" [disabled]="disable"></mat-checkbox> -->
                         <!-- <mat-checkbox *ngIf="guest != userMail"  [(ngModel)]="result" [disabled]=true></mat-checkbox> -->
-                        <app-checker [slotID]="idSurvey" [email]="guest" [id_cr]="date.id" *ngIf="guest != userMail"></app-checker>
+                        <app-checker [slotID]="idSurvey" [email]="guest" [id_cr]="date.id" (click)="selectedDate(date,guest)" (results)="onChange($event)"></app-checker>
                      </td>
                      <mat-divider></mat-divider>
                     </tr>
@@ -56,7 +56,7 @@
 
     </mat-card-content>
     <mat-card-actions align="start">
-                <button mat-raised-button  color="warn"(click)="validerVote()">Valider le vote</button>
+                <button mat-raised-button  color="warn"(click)="validerVote()" [disabled]="creneau.length == 0">Valider le vote</button>
                 <button mat-raised-button  color="warn"(click)="deleteEvent(event)">Valider sondage</button>
 
     </mat-card-actions>

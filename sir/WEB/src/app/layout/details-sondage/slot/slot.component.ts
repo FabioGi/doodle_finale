@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
 import { DetailsSondageService } from 'src/app/service/details-sondage.service';
 
@@ -12,16 +13,15 @@ export class SlotComponent implements OnInit {
 slotId: number;
 @Input()
 sondageId: number ;
+  counter: Observable<number[]>;
 
-counter: any;
+
 
   constructor(private ds : DetailsSondageService) {
   }
 
 
   ngOnInit() {
-    this.ds.countSlotOrderByUser(this.slotId, this.sondageId).subscribe((count) => {
-          this.counter = count;
-    });
+    this.counter = this.ds.countSlotOrderByUser(this.slotId, this.sondageId);
   }
 }

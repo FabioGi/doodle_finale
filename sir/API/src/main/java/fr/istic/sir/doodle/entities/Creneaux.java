@@ -51,6 +51,8 @@ public class Creneaux {
 	
 	@Column(name = "pause", nullable = false)
 	private boolean pause = false ;
+	
+	// private boolean isChecked = false;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_sondage", referencedColumnName = "id")
