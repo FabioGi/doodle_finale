@@ -107,16 +107,15 @@ public class DoodleService implements IdoodleService {
 
 	@Override
 	// ok
-	public Set<User> attendanceList() {
-		Creneaux c = this.selectCrenauxforMeeting();
-		return rUser.findAttendanceList(c);
+	public Set<User> attendanceList(long idCreneau,long idSondage) {
+		// Creneaux c = this.selectCrenauxforMeeting();
+		return rUser.findAttendanceList(idCreneau, idSondage);
 	}
 
 	@Override
 	// ok
-	public Set<User> absenceList() {
-		Creneaux c = this.selectCrenauxforMeeting();
-		return rUser.findAbsenceList(c);
+	public Set<User> absenceList(long idCreneau,long idSondage) {
+		return rUser.findAbsenceList(idCreneau, idSondage);
 	}
 
 //	@Transactional

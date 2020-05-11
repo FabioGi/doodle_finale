@@ -81,17 +81,25 @@ public class SondageController {
 	 * 
 	 * GET REQUEST FOR API
 	 */
-	@RequestMapping(value = "/allergies", method = RequestMethod.GET, produces = {"application/json"})
-	  List<Allergie> allAllergies() {
-	    return rAllergie.findAll();
+	@RequestMapping(value = "/allergies/{id}", method = RequestMethod.GET, produces = {"application/json"})
+	  List<Allergie> allAllergies(@PathVariable String id) {
+	    return rAllergie.getAllergieOrderByUser(id);
 	  }
 	@RequestMapping(value = "/creneaux", method = RequestMethod.GET, produces = {"application/json"})
 	  List<Creneaux> allCrenaux() {
 	    return rCreneau.findAll();
 	  }
-	@RequestMapping(value = "/preferences", method = RequestMethod.GET, produces = {"application/json"})
-	  List<Preference> allPreference() {
-	    return rPreference.findAll();
+	@RequestMapping(value = "/surveylist/{id}", method = RequestMethod.GET, produces = {"application/json"})
+	  List<Sondage> getSurveyOrderByGuest(@PathVariable String id) {
+	    return invitation.getSurveyListOrderByGuestList(id);
+	  }
+	@RequestMapping(value = "/surveylistcreated/{id}", method = RequestMethod.GET, produces = {"application/json"})
+	  List<Sondage> getSurveyCreatedByGuest(@PathVariable String id) {
+	    return rSondage.getSurveyCreatedByUsers(id);
+	  }
+	@RequestMapping(value = "/preferences/{id}", method = RequestMethod.GET, produces = {"application/json"})
+	  List<Preference> allPreference(@PathVariable String id) {
+	    return rPreference.getPreferenceOrderByUser(id);
 	  }
 	@RequestMapping(value = "/reunions", method = RequestMethod.GET, produces = {"application/json"})
 	  List<Reunion> allReunions() {
@@ -122,14 +130,14 @@ public class SondageController {
 		return doodleService.getChoiceToUserAfterSondage(idSondage, idUser);
 	}
 	
-	@RequestMapping(value = "/attendlist", method = RequestMethod.GET, produces = {"application/json"})
-	Set<User> getAttendList(){
-		return doodleService.attendanceList();
+	@RequestMapping(value = "/attendlist/{idcreneau}/{idsondage}", method = RequestMethod.GET, produces = {"application/json"})
+	Set<User> getAttendList(@PathVariable long idcreneau, @PathVariable long idsondage){
+		return doodleService.attendanceList(idcreneau,idsondage);
 	}
 	
-	@RequestMapping(value = "/absencelist", method = RequestMethod.GET, produces = {"application/json"})
-	Set<User> getAbsenceList(){
-		return doodleService.absenceList();
+	@RequestMapping(value = "/absencelist/{idcreneau}/{idsondage}", method = RequestMethod.GET, produces = {"application/json"})
+	Set<User> getAbsenceList(@PathVariable long idcreneau, @PathVariable long idsondage){
+		return doodleService.absenceList(idcreneau,idsondage);
 	}
 	
 //	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = {"application/json"})

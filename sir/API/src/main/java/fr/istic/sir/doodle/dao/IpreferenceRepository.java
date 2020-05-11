@@ -12,7 +12,7 @@ import fr.istic.sir.doodle.entities.Preference;
 @RepositoryRestResource
 @CrossOrigin(origins="http://localhost:5000")  
 public interface IpreferenceRepository extends  JpaRepository<Preference, Long> {
-	@Query("SELECT p FROM Preference p WHERE p.user.id = ?1")
+	@Query("SELECT p FROM Preference p WHERE p.user.email = ?1")
 	List<Preference>getPreferenceOrderByUser(String id);
 
 }

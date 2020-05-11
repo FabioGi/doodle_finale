@@ -32,12 +32,15 @@ export class DetailsSondageComponent implements OnInit {
   totale = [];
   creneauSelected: any;
   disableSurvey = [];
+  attendlist: any;
+  absenceList = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private ds: DetailsSondageService
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    // tslint:disable-next-line:only-arrow-functions
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
 
@@ -53,7 +56,15 @@ export class DetailsSondageComponent implements OnInit {
     this.route.paramMap.pipe(switchMap((params: ParamMap) =>
          this.ds.getSondageDetails(params.get('id')))).subscribe((data:Reunion) => {
            this.reunion = {id: data.id,titre:data.titre,lieu:data.lieu,resume:data.resume,dated:data.dated, user: data.user };
-           this.disableSurvey = data.dated.filter( data => data.valided === true);
+           this.disableSurvey = data.dated.filter( survey => survey.valided === true);
+           if(this.disableSurvey[0]) {
+            this.ds.getAttendlist(this.disableSurvey[0].id,this.idSurvey).subscribe((attendlist) => {
+              this.attendlist = attendlist ;
+
+              });
+
+           }
+
            data.dated.forEach((data)=>{
             this.pieChartLabels.push(data.date  );
            });
@@ -68,6 +79,8 @@ export class DetailsSondageComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.idSurvey = params['id'];
   });
+
+
 
     this.pieChartType = 'pie';
   }

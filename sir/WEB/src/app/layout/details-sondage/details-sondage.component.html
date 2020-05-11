@@ -85,4 +85,18 @@
 
 </mat-card>
 
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Liste de presence</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+          <ul >
+              <li *ngFor="let item of attendlist">
+                    {{item.name}} | {{item.email}}
+              </li>
+          </ul>
+    </mat-card-content>
+
+</mat-card>
+
 </div>

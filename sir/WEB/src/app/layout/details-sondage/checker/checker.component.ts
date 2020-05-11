@@ -45,8 +45,6 @@ export class CheckerComponent implements OnInit {
 
   isCheked(id) {
     this.result = this.choice.includes(id);
-   // this.results.emit(this.result);
-   // console.log(this.result);
   }
   ischecked(val){
     this.results.emit(val);

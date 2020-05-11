@@ -49,12 +49,12 @@ public interface IdoodleService {
 	 * List a attendlist
 	 * @return List a attendanceList
 	 */
-	public Set<User>attendanceList();
+	public Set<User>attendanceList(long idCreneau, long idSondage);
 	/***
 	 * List absenceList
 	 * @return absenceList
 	 */
-	public Set<User>absenceList();
+	public Set<User> absenceList(long idCreneau,long idSondage);
 	
 	/***
 	 * Allow user to choose a date

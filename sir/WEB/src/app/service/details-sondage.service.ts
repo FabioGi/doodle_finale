@@ -39,4 +39,24 @@ constructor(private httpClient: HttpClient) { }
     return this.httpClient.put<any>('http://localhost:8080/api/validesondage', data);
   }
 
+  getAttendlist(idCreneau, idSondage) {
+    return this.httpClient.get<any>('http://localhost:8080/api/attendlist/' + idCreneau + '/' + idSondage );
+  }
+
+  getAbsencelistlist(idCreneau, idSondage) {
+    return this.httpClient.get<any>('http://localhost:8080/api/absencelist/' + idCreneau + '/' + idSondage );
+  }
+
+  getUsers() {
+    return this.httpClient.get<any>('http://localhost:8080/api/users' );
+  }
+
+  getPreferences(id){
+    return this.httpClient.get<any>('http://localhost:8080/api/preferences' + '/' + id );
+  }
+
+  getAllergie(id){
+    return this.httpClient.get<any>('http://localhost:8080/api/allergies' + '/' + id );
+  }
+
 }

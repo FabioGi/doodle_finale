@@ -9,6 +9,8 @@ import { ChartsModule as Ng2Charts } from 'ng2-charts';
 import { StatModule } from '../../shared/modules/stat/stat.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
+import { StatutComponent } from './statut/statut.component';
+import { StatutCreatorComponent } from './statut-creator/statut-creator.component';
 
 @NgModule({
     imports: [
@@ -18,13 +20,9 @@ import { DashboardComponent } from './dashboard.component';
         StatModule,
         Ng2Charts,
         // MatCardModule,
-        // MatCardModule,
-        // MatTableModule,
-        // MatButtonModule,
-        // MatIconModule,
         FlexLayoutModule.withConfig({addFlexToParent: false}),
         AngularMaterialModule
     ],
-    declarations: [DashboardComponent]
+    declarations: [DashboardComponent, StatutComponent, StatutCreatorComponent]
 })
 export class DashboardModule {}
