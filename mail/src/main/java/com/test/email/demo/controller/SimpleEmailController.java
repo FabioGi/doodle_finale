@@ -20,7 +20,7 @@ public class SimpleEmailController {
     @RequestMapping("/mail")
     public String sendSimpleEmail(){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("LeMailFonctionne@etudiant.univ-rennes1.fr");
+        message.setFrom("doodlesondage@etudiant.univ-rennes1.fr");
         message.setTo(My_Contants.FRIEND_EMAIL);
         message.setSubject("Test Simple Email");
         message.setText("Hello, Im testing Simple Email");
