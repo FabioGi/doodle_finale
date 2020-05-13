@@ -13,5 +13,8 @@ import fr.istic.sir.doodle.entities.Sondage;
 public interface IsondageRepository extends  JpaRepository<Sondage, Long> {
 	@Query("SELECT s FROM Sondage s WHERE s.user.email = ?1 order by s desc")
 	List<Sondage>getSurveyCreatedByUsers(String email);
+	
+	@Query("SELECT count(s) FROM Sondage s join s.dated d WHERE d.valided = true AND s.user.email = ?1 order by s desc")
+	int countSurveyWhichAreValided(String email);
 		
 }

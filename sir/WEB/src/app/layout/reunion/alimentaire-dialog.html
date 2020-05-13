@@ -1,0 +1,62 @@
+<div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+  <div [fxFlex]="50" >
+    <mat-toolbar color="primary">Preferences</mat-toolbar>
+
+    <table>
+      <tr *ngFor="let p of preferences">
+        <td>
+            {{p.name}}
+        </td>
+        <td>
+          <button mat-raised-button (click)="deletePreference(p.id)" *ngIf="currentuser == data" ><mat-icon>delete</mat-icon></button>
+        </td>
+        <!-- <td>
+          <button mat-raised-button (click)="show()"><mat-icon>add</mat-icon></button>
+        </td> -->
+      </tr>
+      <tr *ngIf="currentuser == data">
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Preference</mat-label>
+            <input matInput placeholder="Ajouter preference" [(ngModel)]="pvalue">
+          </mat-form-field>
+        </td>
+        <td>
+          <button mat-raised-button (click)="addPreference()">ajouter</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div [fxFlex]="50" >
+    <mat-toolbar color="primary">Allergies</mat-toolbar>
+
+    <table>
+      <tr *ngFor="let p of allergies">
+        <td>
+            {{p.name}}
+        </td>
+        <!-- <td>
+          <button mat-raised-button (click)="show()"><mat-icon>add</mat-icon></button>
+        </td> -->
+        <td>
+          <button mat-raised-button (click)="deleteAllergie(p.id)" *ngIf="currentuser == data"><mat-icon>delete</mat-icon></button>
+        </td>
+      </tr>
+      <tr *ngIf="currentuser == data">
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Allergie</mat-label>
+            <input matInput placeholder="Ajouter allergie" [(ngModel)]="value">
+          </mat-form-field>
+        </td>
+        <td>
+          <button mat-raised-button (click)="addAllergie()">Ajouter</button>
+        </td>
+
+    </tr>
+    </table>
+  </div>
+</div>
+<button mat-raised-button (click)="onNoClick()" color="warn">OK</button>
+
+

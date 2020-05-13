@@ -61,9 +61,6 @@ export class SondageComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
               private ss: SondageService,
               private router: Router) {
-    // this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-    //   startWith(null),
-    //   map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
 
     this.ss.getUsersMail().subscribe((data) => {
      // this.allmails =  data;
@@ -74,14 +71,6 @@ export class SondageComponent implements OnInit {
         })
       );
     });
-
-
-    // this.filteredMails =  this.mailsCtrl.valueChanges.pipe(
-    //     startWith(null),
-    //     map((user) => {
-    //       return user ? this._filter(user) : this.mails.slice();
-    //     })
-    //   );
   }
 
   ngOnInit() {
@@ -151,12 +140,17 @@ export class SondageComponent implements OnInit {
       const creneaux: Creneau[] = [];
       const sondage = new Sondage();
       const sondageDTO = new SondageDTO();
+      const subject = 'Invitation au sondage';
+      const lien = `http://localhost:5000/dashboard`;
+      // tslint:disable-next-line:one-variable-per-declaration
+     //  const content  = `<p> Vous êtes convies à participer au sondage cliquez sur ce lien` + lien + '</p>';
+      const content = 'yes';
       const lieu: string   = this.firstFormGroup.value.lieuCtrl   ? this.firstFormGroup.value.lieuCtrl   : null;
       const mail: string   = this.firstFormGroup.value.mailCtrl   ? this.firstFormGroup.value.mailCtrl   : null;
       const resume: string = this.firstFormGroup.value.resumeCtrl ? this.firstFormGroup.value.resumeCtrl : null;
       const titre: string  = this.firstFormGroup.value.titreCtrl  ? this.firstFormGroup.value.titreCtrl  : null;
 
-      sondage.updateSondage(lieu, titre, resume, mail);
+      sondage.updateSondage(lieu, titre, resume, mail,subject,content);
       this.events.forEach((creneau: SelctedDate) => {
         creneaux.push({date: creneau.date,
                       heure_debut: creneau.start.getHours().toString() + ':' + creneau.start.getMinutes().toString(),

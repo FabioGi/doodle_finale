@@ -51,12 +51,4 @@ constructor(private httpClient: HttpClient) { }
     return this.httpClient.get<any>('http://localhost:8080/api/users' );
   }
 
-  getPreferences(id){
-    return this.httpClient.get<any>('http://localhost:8080/api/preferences' + '/' + id );
-  }
-
-  getAllergie(id){
-    return this.httpClient.get<any>('http://localhost:8080/api/allergies' + '/' + id );
-  }
-
 }

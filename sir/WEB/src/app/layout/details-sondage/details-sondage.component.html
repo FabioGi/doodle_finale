@@ -11,8 +11,10 @@
 
     <div [fxFlex]="100" >
         <mat-card-header fxFlexFill fxLayoutAlign="center center">
-            <mat-card-title>{{reunion.titre}}</mat-card-title>
-            <mat-card-subtitle>{{reunion.lieu}}</mat-card-subtitle>
+            <mat-card-title>TITRE: {{reunion.titre}}</mat-card-title>
+            <mat-card-subtitle>Lieu: {{reunion.lieu}}</mat-card-subtitle>
+            <mat-card-title *ngIf="disableSurvey.length != 0"> <button mat-raised-button color="primary" [routerLink]="['./../../reunion',idSurvey]">Voir Details de la reunion</button></mat-card-title>
+
           </mat-card-header>
     </div>
     <mat-card-content>
@@ -84,8 +86,12 @@
   </div>
 
 </mat-card>
-
-<mat-card>
+<div *ngIf="isInsert" class="center">
+  <br><br>
+  <mat-spinner color="warn"></mat-spinner>
+  <br><br>
+</div>
+<!-- <mat-card>
     <mat-card-header>
         <mat-card-title>Liste de presence</mat-card-title>
     </mat-card-header>
@@ -97,6 +103,6 @@
           </ul>
     </mat-card-content>
 
-</mat-card>
+</mat-card> -->
 
 </div>

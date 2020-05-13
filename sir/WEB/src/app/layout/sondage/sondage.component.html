@@ -60,7 +60,7 @@
                         <th>Date</th>
                         <th>Heure debut</th>
                         <th>Heure fin</th>
-                        <th>Action</th>
+                        <!-- <th>Action</th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -74,9 +74,9 @@
                             <td>
                                 {{event.end | date:'shortTime' }}
                             </td>
-                            <td>
+                            <!-- <td>
                                 <button mat-raised-button  color="warn"(click)="deleteEvent(event)">Supprimer creneau</button>
-                            </td>
+                            </td> -->
                           </tr>
 
                         </tbody>
@@ -102,7 +102,7 @@
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                       </mat-chip>
                       <input
-                        placeholder="New fruit..."
+                        placeholder="Ajouter emails ..."
                         #fruitInput
                         [formControl]="mailsCtrl"
                         [matAutocomplete]="auto"

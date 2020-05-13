@@ -11,6 +11,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { StatutComponent } from './statut/statut.component';
 import { StatutCreatorComponent } from './statut-creator/statut-creator.component';
+import { StatistiqueComponent } from './statistique/stat.component';
 
 @NgModule({
     imports: [
@@ -23,6 +24,6 @@ import { StatutCreatorComponent } from './statut-creator/statut-creator.componen
         FlexLayoutModule.withConfig({addFlexToParent: false}),
         AngularMaterialModule
     ],
-    declarations: [DashboardComponent, StatutComponent, StatutCreatorComponent]
+    declarations: [DashboardComponent, StatutComponent, StatutCreatorComponent, StatistiqueComponent]
 })
 export class DashboardModule {}

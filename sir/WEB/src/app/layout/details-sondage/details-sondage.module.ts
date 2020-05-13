@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
 import { SlotComponent } from './slot/slot.component';
 import { CheckerComponent } from './checker/checker.component';
 import { ChartsModule as Ng2Charts } from 'ng2-charts';
-import { AlimentaireComponent } from './alimentaire/alimentaire.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
@@ -34,7 +33,7 @@ import { AlimentaireComponent } from './alimentaire/alimentaire.component';
     // NgxMatTimepickerModule
     NgxMatNativeDateModule
   ],
-  declarations: [DetailsSondageComponent, SlotComponent,CheckerComponent, AlimentaireComponent]
+  declarations: [DetailsSondageComponent, SlotComponent, CheckerComponent]
 })
 export class DetailsSondageModule { }
 

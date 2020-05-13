@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LayoutComponent } from './layout.component';
+import { AuthGaurdService } from '../service/auth-gaurd.service';
 
 const routes: Routes = [
     {
@@ -14,11 +15,15 @@ const routes: Routes = [
             // },
             {
               path: 'sondage',
-              loadChildren: './sondage/sondage.module#SondageModule'
+              loadChildren: './sondage/sondage.module#SondageModule', canActivate: [AuthGaurdService]
             },
             {
               path: 'sondage-details/:id',
-              loadChildren: './details-sondage/details-sondage.module#DetailsSondageModule'
+              loadChildren: './details-sondage/details-sondage.module#DetailsSondageModule', canActivate: [AuthGaurdService]
+            },
+            {
+              path: 'reunion/:id',
+              loadChildren: './reunion/reunion.module#ReunionModule', canActivate: [AuthGaurdService]
             },
             // {
             //   path: 'sondages',
@@ -26,7 +31,7 @@ const routes: Routes = [
             // },
             {
                 path: 'dashboard',
-                loadChildren: './dashboard/dashboard.module#DashboardModule'
+                loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthGaurdService]
             },
             {
                 path: 'charts',
@@ -35,7 +40,7 @@ const routes: Routes = [
             {
                 path: 'components',
                 loadChildren:
-                    './material-components/material-components.module#MaterialComponentsModule'
+                    './material-components/material-components.module#MaterialComponentsModule', canActivate: [AuthGaurdService]
             },
             {
                 path: 'forms',

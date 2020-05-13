@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { DashBoardService } from 'src/app/service/dashboard.service';
@@ -50,13 +51,22 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatPaginator, {static: true}) paginator2: MatPaginator;
 
-    places: Array<any> = [];
-    panelOpenState = false;
-     public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales','Sales'];
-     public pieChartData: number[] = [300, 500, 100,100];
-     public pieChartType: string;
+    // places: Array<any> = [];
+    // panelOpenState = false;
+    //  public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales','Sales'];
+    //  public pieChartData: number[] = [300, 500, 100,100];
+    //  public pieChartType: string;
   surveyList: any;
   userSurveyList: any;
+  userSurveyTotal: any;
+  surveyListTotal: any;
+  userSurveyValided: any;
+  surveyValided: any;
+  surveyNoValided: any;
+  surveyListValided: any;
+  invitationValided = 0;
+  invitationNoValided = 0;
+  meetingIscreated: any;
 
     constructor(private ds: DashBoardService) {
     }
@@ -67,18 +77,34 @@ export class DashboardComponent implements OnInit {
       const currentUser = sessionStorage.getItem('email');
       this.ds.getSurveyList(currentUser).subscribe((data)=>{
           this.surveyList = data;
+          this.surveyListTotal = data? data.length:0;
+          // this.surveyListValided = data.filter(data.dated => data.dated.filter(d => d.) !== 0);
           this.dataSource = new MatTableDataSource<Sondage>(this.surveyList);
           console.log(data);
           this.dataSource.paginator = this.paginator;
       });
 
       this.ds.getSurveyListCreatedOrderByUser(currentUser).subscribe((data) => {
-        //  this.userSurveyList = data;
-          this.dataSource2 = new MatTableDataSource<Sondage>(data);
-          this.dataSource2.paginator = this.paginator2;
-          console.log(data);
+           this.userSurveyTotal = data? data.length: 0;
+           this.dataSource2 = new MatTableDataSource<Sondage>(data);
+           this.dataSource2.paginator = this.paginator2;
+           this.ds.countSurveyValided(currentUser).subscribe((c) => {
+             this.surveyValided = c ? c : 0 ;
+             this.surveyNoValided =  this.userSurveyTotal - c ;
+         });
       });
-      this.pieChartType = 'pie';
+      // console.log(this.invitationValided);
+    }
+
+    getTotal(data){
+      this.invitationValided += data;
+      this.invitationNoValided =  this.surveyListTotal -  this.invitationValided;
+      console.log(this.invitationValided);
+    }
+
+    getResponse(response){
+      // console.log(meetingIscreateg);
+      this.meetingIscreated = response;
     }
 
 

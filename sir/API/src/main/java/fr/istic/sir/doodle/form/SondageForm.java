@@ -9,6 +9,8 @@ public class SondageForm {
 	private SondageDTO sondage;
 	private List<Creneaux>creneau ;
 	private List<String>mails;
+	private String content;
+	private String subject;
 	
 	public SondageForm() {
 	}
@@ -35,6 +37,26 @@ public class SondageForm {
 
 	public List<String> getMails() {
 		return mails;
+	}
+
+
+	public String getContent() {
+		return content;
+	}
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+	public String getSubject() {
+		return subject;
+	}
+
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 }

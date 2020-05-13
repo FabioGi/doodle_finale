@@ -18,7 +18,7 @@ export class StatutCreatorComponent implements OnInit {
   ngOnInit() {
       this.ds.getSondageDetails(this.id).subscribe((data)=>{
         this.statut = data.dated.filter( survey => survey.valided === true);
-        console.log(this.statut);
+        // console.log(this.statut);
       });
   }
 }

@@ -1,2 +1,2 @@
-<button *ngIf="response"  mat-button color="primary">A vote</button>
+<button *ngIf="response"  mat-button color="primary" 	[routerLink]="['./../reunion',slotID]">A vote</button>
 <button *ngIf="!response"  mat-button color="warn">Non vote</button>

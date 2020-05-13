@@ -1,0 +1,27 @@
+<mat-card [ngClass]="bgClass">
+    <mat-card-header>
+        <div mat-card-avatar>
+            <mat-icon class="icon-lg">{{icon}}</mat-icon>
+        </div>
+        <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
+            <div [fxFlex]="33.33">
+              <mat-card-title>{{count}}</mat-card-title>
+              <mat-card-subtitle>{{labeltotal}}</mat-card-subtitle>
+            </div>
+            <div [fxFlex]="33.33">
+              <mat-card-title>{{countValided}}</mat-card-title>
+              <mat-card-subtitle>{{labelValided}}</mat-card-subtitle>
+            </div>
+            <div [fxFlex]="33.33">
+              <mat-card-title>{{countNovalided}}</mat-card-title>
+              <mat-card-subtitle>{{labelNoValided}} </mat-card-subtitle>
+            </div>
+        </div>
+
+
+        <!-- <mat-card-title>{{count}}</mat-card-title>
+        <mat-card-subtitle>{{label}}</mat-card-subtitle>
+        <mat-card-title>{{count}}</mat-card-title>
+        <mat-card-subtitle>{{label}}</mat-card-subtitle> -->
+    </mat-card-header>
+</mat-card>

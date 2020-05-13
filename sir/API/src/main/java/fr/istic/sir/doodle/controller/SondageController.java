@@ -6,13 +6,18 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+// import com.test.email.demo.My_Contants;
 
 import fr.istic.sir.doodle.dao.ICreneauxReposirory;
 import fr.istic.sir.doodle.dao.IallergieRepository;
@@ -29,7 +34,9 @@ import fr.istic.sir.doodle.entities.Reunion;
 import fr.istic.sir.doodle.entities.Sondage;
 import fr.istic.sir.doodle.entities.User;
 import fr.istic.sir.doodle.entities.Vote;
+import fr.istic.sir.doodle.form.AllergieDTO;
 import fr.istic.sir.doodle.form.CreneauxForm;
+import fr.istic.sir.doodle.form.PreferenceDTO;
 import fr.istic.sir.doodle.form.SondageDTO;
 import fr.istic.sir.doodle.form.SondageForm;
 import fr.istic.sir.doodle.form.ValidedSondageForm;
@@ -61,21 +68,8 @@ public class SondageController {
 	ICreneauxReposirory rCreneau;
 	@Autowired
 	Iinvitation invitation ;
-	
-	
-	// @GetMapping("/user/vote")
-	// public Creneaux obtainsCreneauxById(@RequestParam("id") long id) {
-	//	icreCreneauxReposirory.findAll().forEach(c->{
-	//		ArrayList listCreneauxById = new ArrayList(); 
-	//	long id1;
-	//	id1 = c.getId();
-	//	if(id1 == id) {
-	//		listCreneauxById.add(id);
-	//	}
-	//			
-	//	});
-	//	return null;
-	//	}
+	@Autowired
+	private JavaMailSender emailSender;
 	
 	/**
 	 * 
@@ -140,71 +134,44 @@ public class SondageController {
 		return doodleService.absenceList(idcreneau,idsondage);
 	}
 	
-//	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = {"application/json"})
-//	User getTest() {
-//		return doodleService.createUser();
-//	}
+	@RequestMapping(value = "/countsurveyvalided/{email}", method = RequestMethod.GET, produces = {"application/json"})
+	int countSurveyValided(@PathVariable String email){
+		return rSondage.countSurveyWhichAreValided(email);
+	}
 	
 	/***
 	 * POST REQUEST 
 	 */
 	
-//	@RequestMapping(value = "/absencelist", method = RequestMethod.POST)
-//	    public Comment createComment(@PathVariable (value = "postId") Long postId,
-//	                                 @Valid @RequestBody Comment comment) {
-//	        return postRepository.findById(postId).map(post -> {
-//	            comment.setPost(post);
-//	            return commentRepository.save(comment);
-//	        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
-//	    }
-	
-//	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
-//    public Comment createComment(@PathVariable (value = "postId") Long postId,
-//                                 @Valid @RequestBody Comment comment) {
-//        return postRepository.findById(postId).map(post -> {
-//            comment.setPost(post);
-//            return commentRepository.save(comment);
-//        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
-//    }
-	
-//	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
-//	public boolean createUser(@RequestBody InscriptionForm inscription) {
-//		Objects.requireNonNull(inscription);
-//		UserDTO user = inscription.getUser();
-//		List<Allergie> allergies = inscription.getAllergies();
-//		List<Preference> preferences = inscription.getPreferences();
-//		Objects.requireNonNull(user);
-//		Objects.requireNonNull(allergies);
-//		Objects.requireNonNull(preferences);
-//		return doodleService.createUser(user, allergies, preferences);
-//	}
 	
 	@RequestMapping(value = "/addsondage", method = RequestMethod.POST)
 	public Sondage createSondage(@RequestBody SondageForm sondageForm) {
 		Objects.requireNonNull(sondageForm);
 		SondageDTO sondage = sondageForm.getSondage();
+		String subject = sondageForm.getSubject();
+		String content = sondageForm.getContent();
 		List<Creneaux> creneaux = sondageForm.getCreneau();
 		List<String> mails = sondageForm.getMails();
 		Objects.requireNonNull(creneaux);
 		Objects.requireNonNull(sondage);
 		Objects.requireNonNull(mails);
-		return doodleService.createSondage(sondage,creneaux,mails);
+		return doodleService.createSondage(sondage,creneaux,mails,subject,content);
 	}
-	
-//	@RequestMapping(value = "/addcreneau", method = RequestMethod.POST)
-//	public boolean createCreneau(@RequestBody CreneauxForm creneauForm) {
-//		Objects.requireNonNull(creneauForm);
-//		Creneaux creneaux = creneauForm.getCreneaux();
-//		int  idSondage = creneauForm.getIdSondage();
-//		Objects.requireNonNull(creneaux);
-//		Objects.requireNonNull(idSondage);
-//		return doodleService.createCrenaux(idSondage, creneaux);
-//	}
 	
 	@RequestMapping(value = "/addreunion", method = RequestMethod.POST)
 	 public boolean createMeeting(@RequestBody 	Reunion reunion) {
 		Objects.requireNonNull(reunion);
 		return doodleService.createReunion(reunion);
+	}
+	
+	@RequestMapping(value = "/addallergie", method = RequestMethod.POST)
+	 public boolean createAllergie(@RequestBody AllergieDTO a) {
+		return doodleService.createAllergie(a.getName(), a.getEmail());
+	}
+	
+	@RequestMapping(value = "/addpreference", method = RequestMethod.POST)
+	 public boolean createPreference(@RequestBody PreferenceDTO p ) {
+		return doodleService.createPreference(p.getName(), p.getEmail());
 	}
 	
 	@RequestMapping(path = "/chosecreneau", method = RequestMethod.POST)
@@ -220,8 +187,10 @@ public class SondageController {
 	@RequestMapping(path = "/validesondage", method = RequestMethod.PUT)
 	public Creneaux validedSondage(@RequestBody ValidedSondageForm vs ) {
 		long idCreneau = vs.getId();
+		String content = vs.getContent();
+		String subject = vs.getSubject();
 		List<String> emails = vs.getEmails();
-		return doodleService.validedSondage(idCreneau,emails);
+		return doodleService.validedSondage(idCreneau,emails,subject,content );
 	}
 	
 	/**
@@ -230,8 +199,21 @@ public class SondageController {
 	
 	    @ResponseBody
 	    @RequestMapping("/mail")
-	    public void sendSimpleEmail(@RequestBody List<String>mails){
-	          doodleService.sendMultipleMail(mails);
+//	    public void sendSimpleEmail(){
+//	          doodleService.sendMailToUserAfterSondageCreated();
+//	    }
+	    public String sendSimpleEmail(){
+	        SimpleMailMessage message = new SimpleMailMessage();
+	        message.setFrom("LeMailFonctionne@etudiant.univ-rennes1.fr");
+	        message.setTo("hervefab007@gmail.com");
+	        message.setSubject("Test Simple Email");
+	        message.setText("Hello, Im testing Simple Email");
+	        /*message.setTo("kouassi-othniel.konan@etudiant.univ-rennes1.fr");*/
+
+
+	        // Send Message!
+	        emailSender.send(message);
+	        return "Email Sent";
 	    }
 	    
 	    /**
@@ -265,6 +247,16 @@ public class SondageController {
  	int getChoiceToUserAfterSondage(@PathVariable long idSlot, @PathVariable long idSurvey){
  		return doodleService.countUserOrderBySlotinCurrentSurvey(idSlot, idSurvey);
  	}
+    
+    @DeleteMapping("/deletepreference/{id}")
+    public void deletePreference(@PathVariable long id) {
+    	doodleService.deletePreference(id);
+    }
+    
+    @DeleteMapping("/deleteallergie/{id}")
+    public void deleteAllergie(@PathVariable long id) {
+    	doodleService.deleteAllergie(id);
+    }
      
 }
 

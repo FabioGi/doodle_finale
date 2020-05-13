@@ -35,7 +35,7 @@ public interface IdoodleService {
 	 * valid a sondage
 	 * @return true 
 	 */
-	public Creneaux validedSondage(long idCreneau, List<String> emails);
+	public Creneaux validedSondage(long idCreneau, List<String> emails, String subject, String content);
 	/**
 	 * envoyer un mails aux utilisateurs avec la date retenue pour la reunion
 	 */
@@ -108,7 +108,7 @@ public interface IdoodleService {
 	 * @return *
 	 * 
 	 */
-	public void sendMailToUserAfterSondageCreated(String usersMail);
+	// public void sendMailToUserAfterSondageCreated(String usersMail);
 	/**
 	 * 
 	 * @param idUser
@@ -127,7 +127,7 @@ public interface IdoodleService {
 	 * @param usersMail
 	 */
 	
-	void sendMultipleMail(List<String> usersMail);
+	// void sendMultipleMail(List<String> usersMail);
 	/**
 	 * Creation d'un sondage avec la liste de creneau associe
 	 * @param sondage
@@ -135,7 +135,7 @@ public interface IdoodleService {
 	 * @param mails
 	 * @return
 	 */
-	Sondage createSondage(SondageDTO sondage, List<Creneaux> creneau, List<String> mails);
+	Sondage createSondage(SondageDTO sondage,List<Creneaux> creneau, List<String>mails, String subject, String content);
 	/**
 	 * 
 	 * @param id
@@ -155,6 +155,49 @@ public interface IdoodleService {
 	 * @return
 	 */
 	int countUserOrderBySlotinCurrentSurvey(long idSlot,long idSurvey );
+	
+	/**
+	 * create allergie
+	 * @param allergie
+	 * @param email
+	 * @return
+	 */
+	// boolean createAllergie(Allergie allergie, String email);
+	/**
+	 * create preference
+	 * @param preference
+	 * @param email
+	 * @return
+	 */
+	boolean createPreference(String preference, String email);
+	/**
+	 * delete preference
+	 * @param id
+	 */
+	void deletePreference(long id);
+	/***
+	 * remove allergie
+	 * @param id
+	 */
+	void deleteAllergie(long id);
+	/**
+	 * 
+	 * @param mail
+	 * @param subject
+	 * @param content
+	 */
+	void sendMailToUserAfterSondageCreated(String mail, String subject, String content);
+	/***
+	 * 
+	 * @param usersMail
+	 * @param subject
+	 * @param content
+	 */
+	void sendMultipleMail(List<String> usersMail, String subject, String content);
+	
+	
+	boolean createAllergie(String name, String email);
+	
 	
 	
 	

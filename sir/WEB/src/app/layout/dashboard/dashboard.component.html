@@ -6,13 +6,36 @@
 <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
 
     <div [fxFlex]="33.33">
+      <stat [bgClass]="'info'" [icon]="'date_range'" [count]="userSurveyTotal" [countNovalided]="surveyNoValided"
+       [countValided]="surveyValided" [labeltotal]="'Sondage crées'"
+        [labelValided]="'Sondage validés'" [labelNoValided] ="'Sondages non validés'"></stat>
     </div>
+
     <div [fxFlex]="33.33">
         <app-stat [bgClass]="'success'" [icon]="'supervisor_account'"  [label]="'REUNION DE GROUPE'" [content]="'Trouvez le moment ideal pour vous retrouvez'"></app-stat>
     </div>
     <div [fxFlex]="33.33">
+      <stat [bgClass]="'danger'" [icon]="'email'" [count]="surveyListTotal"
+       [countNovalided]="invitationNoValided" [countValided]="invitationValided"
+       [labeltotal]="'Invitations reçus'"
+        [labelValided]="'Invitations validées'" [labelNoValided] ="'Invitations non validées'"></stat>
     </div>
 </div>
+
+<!-- <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
+  <div fxFlex>
+      <app-stat [bgClass]="'success'" [icon]="'done_all'" [count]="13" [label]="'Colis livres!'"></app-stat>
+  </div>
+  <div fxFlex>
+      <app-stat [bgClass]="'warn'" [icon]="'access_time'" [count]="12" [label]="'Colis en cours de livraison!'"></app-stat>
+  </div>
+  <div fxFlex>
+      <app-stat [bgClass]="'danger'" [icon]="'report_problem'" [count]="14" [label]="'Colis retires!'"></app-stat>
+  </div>
+  <div fxFlex>
+      <app-stat [bgClass]="'info'" [icon]="'view_list'" [count]="49" [label]="'Voir tous les colis!'"></app-stat>
+  </div>
+</div> -->
 <!-- <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
 
 </div> -->
@@ -142,7 +165,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
     </div>
 
   </div>
@@ -163,11 +186,11 @@
           <th mat-header-cell *matHeaderCellDef> Lieu </th>
           <td mat-cell *matCellDef="let element"> {{element.lieu}} </td>
         </ng-container>
-
+        <!-- meetingIscreated -->
         <!-- Weight Column -->
         <ng-container matColumnDef="statut">
           <th mat-header-cell *matHeaderCellDef> Statut </th>
-          <td mat-cell *matCellDef="let element"> <app-statut [slotID]="element.id" [email]="element.user.email"></app-statut> </td>
+          <td mat-cell *matCellDef="let element"> <app-statut [slotID]="element.id" (total) = getTotal($event)></app-statut> </td>
         </ng-container>
 
         <!-- Symbol Column -->
@@ -177,14 +200,18 @@
         </ng-container>
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action </th>
-          <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn" 	[routerLink]="['./../sondage-details',element.id]">voir</button> </td>
+          <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn" 	[routerLink]="['./../sondage-details',element.id]">voir sondage</button> </td>
         </ng-container>
+        <!-- <ng-container matColumnDef="Details reunion">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary" [disabled]="meetingIscreated" 	[routerLink]="['./../reunion',element.id]">voir reunion</button> </td>
+        </ng-container> -->
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[10, 20,30]" showFirstLastButtons></mat-paginator>
     </div>
 
   </div>

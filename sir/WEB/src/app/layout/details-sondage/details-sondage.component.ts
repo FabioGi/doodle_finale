@@ -34,6 +34,7 @@ export class DetailsSondageComponent implements OnInit {
   disableSurvey = [];
   attendlist: any;
   absenceList = [];
+  isInsert: boolean;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -145,12 +146,14 @@ export class DetailsSondageComponent implements OnInit {
       this.ds.validedSurvey(valideSurvey).subscribe((data)=>{
               console.log('sondage valide avec succes');
               this.creneauSelected = data;
+              this.router.navigate(['/reunion/' + this.idSurvey]);
         },
         error => {
           console.log(error.message);
         });
     }
-   // this.router.navigate(['/sondage-details/' + this.idSurvey]);
+
+    this.isInsert = true;
   }
 
 }

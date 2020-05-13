@@ -1,20 +1,20 @@
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { AlimentaireComponent } from "./alimentaire.component";
+import { ReunionComponent } from "./reunion.component";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-describe("AlimentaireComponent", () => {
+describe("ReunionComponent", () => {
 
-  let fixture: ComponentFixture<AlimentaireComponent>;
-  let component: AlimentaireComponent;
+  let fixture: ComponentFixture<ReunionComponent>;
+  let component: ReunionComponent;
   beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
       ],
-      declarations: [AlimentaireComponent]
+      declarations: [ReunionComponent]
     });
 
-    fixture = TestBed.createComponent(AlimentaireComponent);
+    fixture = TestBed.createComponent(ReunionComponent);
     component = fixture.componentInstance;
 
   });

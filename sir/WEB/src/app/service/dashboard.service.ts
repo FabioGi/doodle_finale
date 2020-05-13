@@ -16,9 +16,8 @@ constructor(private httpClient: HttpClient) { }
     return this.httpClient.get<any>(this.endpoint + '/surveylistcreated/' + id);
 }
 
-  // choseDateToMeeting(vote) {
-  //   return this.httpClient
-  //      .post<any>('http://localhost:8080/api/chosecreneau', vote);
-  // }
+countSurveyValided(email) {
+  return this.httpClient.get<any>(this.endpoint + '/countsurveyvalided/' + email );
+}
 
 }

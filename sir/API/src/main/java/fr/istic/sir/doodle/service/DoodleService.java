@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -72,10 +73,10 @@ public class DoodleService implements IdoodleService {
 	@Transactional
 	@Override
 	// ok
-	public Creneaux validedSondage(long idCreneau, List<String> emails) {
+	public Creneaux validedSondage(long idCreneau, List<String> emails, String subject, String content) {
 		Creneaux creneau = rCreneau.findById(new Long(idCreneau)).get();
 		creneau.setValided(true);
-		this.sendMultipleMail(emails);
+		this.sendMultipleMail(emails, subject, content);
 		return creneau;
 	}
 	
@@ -151,7 +152,7 @@ public class DoodleService implements IdoodleService {
 	
 	@Transactional
 	@Override
-	public Sondage createSondage(SondageDTO sondage,List<Creneaux> creneau, List<String>mails) {
+	public Sondage createSondage(SondageDTO sondage,List<Creneaux> creneau, List<String>mails, String subject, String content) {
 		// create sondage
 		Sondage nSondage = new Sondage();
 		nSondage.setLieu(sondage.getLieu());
@@ -170,7 +171,7 @@ public class DoodleService implements IdoodleService {
 		Sondage response = rSondage.save(nSondage);
 		
 		if(response!=null) {
-			sendMultipleMail(mails);
+			sendMultipleMail(mails,subject,content);
 		}
 		return nSondage;
 		// return true;
@@ -246,7 +247,32 @@ public class DoodleService implements IdoodleService {
 		 reunion.setDated(creneaux);
 		 return rReunion.save(reunion) != null;
 	}
-
+	@Transactional
+	@Override
+	public boolean createAllergie(String  name, String email) {
+		User user = rUser.findByEmail(email);
+		 Allergie newAllergie =  new Allergie();
+		 newAllergie.setName(name);
+		 newAllergie.setUser(user);
+		 return rAllergie.save(newAllergie)!=null;
+	}
+	
+	@Override
+	public boolean createPreference(String  preference, String email) {
+		User user = rUser.findByEmail(email);
+		Preference newPreference =  new Preference();
+		newPreference.setName(preference);
+		newPreference.setUser(user);
+		 return rPreference.save(newPreference)!=null;
+	}
+	@Override
+	public void deletePreference(long id) {
+		  rPreference.deleteById(id);
+	}
+	@Override
+	public void deleteAllergie(long id) {
+		  rAllergie.deleteById(id);
+	}
 	@Transactional
 	@Override
 	// ok
@@ -267,12 +293,14 @@ public class DoodleService implements IdoodleService {
 	}
 
 	@Override
-	public void sendMailToUserAfterSondageCreated(String mail) {
+	// ajouter le lien, et la date de reunion selection.
+	// sujet 
+	public void sendMailToUserAfterSondageCreated(String mail, String subject, String content ) {
 		SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("LeMailFonctionne@etudiant.univ-rennes1.fr");
+        message.setFrom("doodlesondage@istic.com");
         message.setTo(mail);
-        message.setSubject("Test Simple Email");
-        message.setText("Hello, Im testing Simple Email");
+        message.setSubject(subject);
+        message.setText(content);
         /*message.setTo("kouassi-othniel.konan@etudiant.univ-rennes1.fr");*/
 
         // Send Message!
@@ -282,9 +310,9 @@ public class DoodleService implements IdoodleService {
 	}
 
 	@Override
-	public void sendMultipleMail(List<String> usersMail) {
+	public void sendMultipleMail(List<String> usersMail, String subject, String content) {
 			for(String mail: usersMail ) {	
-				this.sendMailToUserAfterSondageCreated(mail);
+				this.sendMailToUserAfterSondageCreated(mail,subject, content);
 			}
 		
 	} 
@@ -305,156 +333,5 @@ public class DoodleService implements IdoodleService {
 	public int countUserOrderBySlotinCurrentSurvey(long idSlot, long idSurvey) {
 		return rVote.CountSlotOrderBySurvey(idSlot, idSurvey);
 	}
-
-//	@Override
-//	public boolean choseDate(String idUser, long idCreneau) {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
 	
 }
-
-//List<EntityModel<Order>> orders = orderRepository.findAll().stream()
-//.map(assembler::toModel)
-//.collect(Collectors.toList());
-
-//{
-//	   "user":{
-//	      "email":"kkonan@gmail.com",
-//	      "nom":"konan",
-//	      "prenom":"othniel",
-//	      "web":"kajimoto.fr"
-//	   },
-//	   "preferences":[
-//	      {
-//	         "id":"null",
-//	         "name":"ananas"
-//	      },
-//	      {
-//	         "id":"null",
-//	         "name":"papaye"
-//	      }
-//	   ],
-//	   "allergies":[
-//	      {
-//	         "id":"null",
-//	         "name":"mangue"
-//	      },
-//	      {
-//	         "id":"null",
-//	         "name":"fromage"
-//	      }
-//	   ]
-//	}
-
-//@Transactional
-//@Override
-//// test
-// public User createUserTest() {
-//	User user = new User();
-//	Preference preference1 = new Preference();
-//	Preference preference2 = new Preference();
-//	Allergie allergie1 = new Allergie();
-//	Allergie allergie2 = new Allergie();
-//	
-//	user.setEmail("hervefab007@gmail.com");
-//	user.setNom("Fabrice");
-//	user.setPrenom("kadio");
-//	user.setWeb("kajimoto.fr");
-//		
-//	allergie1.setName("poyo");
-//	allergie1.setUser(user);
-//	allergie2.setName("mangue");
-//	allergie2.setUser(user);
-//	
-//	preference1.setName("banane");
-//	preference2.setName("pomme");
-//	preference1.setUser(user);
-//	preference2.setUser(user);
-//	
-//	user.setAllergies(new ArrayList<>());
-//	user.getAllergies().add(allergie1);
-//	user.getAllergies().add(allergie2);
-//	
-//	user.setPreferences(new ArrayList<>());
-//	user.getPreferences().add(preference1);
-//	user.getPreferences().add(preference2);
-////	rAllergie.save(allergie1);
-////	rAllergie.save(allergie2);
-////	rPreference.save(preference1);
-////	rPreference.save(preference2);
-//	rUser.save(user);
-//	// System.out.println("ok");
-//	
-//	User user1 = new User();
-//	Preference preference3 = new Preference();
-//	Preference preference4 = new Preference();
-//	Allergie allergie3 = new Allergie();
-//	Allergie allergie4 = new Allergie();
-//	
-//	user1.setEmail("mariakeyla225@gmail.com");
-//	user1.setNom("keyla");
-//	user1.setPrenom("kadio");
-//	user1.setWeb("kajimoto.fr");
-//	
-//	allergie3.setName("manioc");
-//	allergie3.setUser(user1);
-//	allergie4.setName("fraise");
-//	allergie4.setUser(user1);
-//	
-//	preference3.setName("abricot");
-//	preference4.setName("orange");
-//	preference3.setUser(user1);
-//	preference4.setUser(user1);
-//	
-//	user1.setAllergies(new ArrayList<>());
-//	user1.getAllergies().add(allergie3);
-//	user1.getAllergies().add(allergie4);
-//	
-//	user1.setPreferences(new ArrayList<>());
-//	user1.getPreferences().add(preference3);
-//	user1.getPreferences().add(preference4);
-////	rAllergie.save(allergie3);
-////	rAllergie.save(allergie4);
-////	rPreference.save(preference3);
-////	rPreference.save(preference4);
-//	rUser.save(user1);
-//	
-//	User user2 = new User();
-//	Preference preference5 = new Preference();
-//	Preference preference6 = new Preference();
-//	Allergie allergie5 = new Allergie();
-//	Allergie allergie6 = new Allergie();
-//	
-//	user2.setEmail("kkonan@gmail.com");
-//	user2.setNom("konan");
-//	user2.setPrenom("othniel");
-//	user2.setWeb("kajimoto.fr");
-//	
-//	allergie5.setName("burguer");
-//	allergie5.setUser(user2);
-//	allergie6.setName("carotte");
-//	allergie6.setUser(user);
-//	
-//	preference5.setName("ananas");
-//	preference6.setName("glace");
-//	preference5.setUser(user2);
-//	preference6.setUser(user2);
-//	
-//	user2.setAllergies(new ArrayList<>());
-//	user2.getAllergies().add(allergie5);
-//	user2.getAllergies().add(allergie6);
-//	
-//	user2.setPreferences(new ArrayList<>());
-//	user2.getPreferences().add(preference5);
-//	user2.getPreferences().add(preference6);
-////	rAllergie.save(allergie1);
-////	rAllergie.save(allergie2);
-////	rPreference.save(preference1);
-////	rPreference.save(preference2);
-//	rUser.save(user2);
-//	return user2;
-//	
-//}
-
-// https://www.javatpoint.com/angular-spring-crud-example
