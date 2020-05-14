@@ -148,7 +148,6 @@ export class SondageComponent implements OnInit {
       const mail: string   = this.firstFormGroup.value.mailCtrl   ? this.firstFormGroup.value.mailCtrl   : null;
       const resume: string = this.firstFormGroup.value.resumeCtrl ? this.firstFormGroup.value.resumeCtrl : null;
       const titre: string  = this.firstFormGroup.value.titreCtrl  ? this.firstFormGroup.value.titreCtrl  : null;
-
       sondage.updateSondage(lieu, titre, resume, mail);
       this.events.forEach((creneau: SelctedDate) => {
         creneaux.push({date: creneau.date,
@@ -170,7 +169,6 @@ export class SondageComponent implements OnInit {
        this.error = error.message;
        console.log( this.error);
      });
-     // console.log(sondageDTO);
       this.response = true;
     }
 

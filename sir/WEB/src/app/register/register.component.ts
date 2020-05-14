@@ -41,6 +41,7 @@ export class RegisterComponent implements OnInit {
   allergies: Allergie[] = [];
   preferences: Preference[] = [];
   error: string | null;
+  invalidLogin: boolean;
 
 
 
@@ -133,6 +134,7 @@ export class RegisterComponent implements OnInit {
     this.rs.register(inscription).subscribe(
       data => {
            console.log('utlisateur creer avec succes');
+           this.checkLogin(this.userForm.value.username, this.userForm.value.password);
           // this.checkLogin(this.userForm.value.username , this.userForm.value.username.password);
       },
       error => {
@@ -140,14 +142,36 @@ export class RegisterComponent implements OnInit {
         this.error = error.message;
 
       }
-    )
+    );
   }
 
+  // checkLogin(username,password) {
+  //   this.ls.authenticate(username, password).subscribe(() => {
+  //     this.router.navigate(['/sondage-details']);
+  //   });
+
+  // }
+
   checkLogin(username,password) {
-    this.ls.authenticate(username, password).subscribe(() => {
-      this.router.navigate(['/sondage-details']);
-    });
+    (this.ls.authenticate(username, password).subscribe(
+      data => {
+        this.router.navigate(['./dashboard']);
+        this.invalidLogin = false;
+      },
+      error => {
+        this.invalidLogin = true;
+        this.error = error.message;
+
+      }
+    )
+    );
 
   }
 
 }
+
+
+
+
+
+
