@@ -150,6 +150,9 @@ public class SondageController {
 		SondageDTO sondage = sondageForm.getSondage();
 		String subject = sondageForm.getSubject();
 		String content = sondageForm.getContent();
+		System.out.println(subject);
+		System.out.println(content);
+		
 		List<Creneaux> creneaux = sondageForm.getCreneau();
 		List<String> mails = sondageForm.getMails();
 		Objects.requireNonNull(creneaux);

@@ -306,6 +306,10 @@ public class DoodleService implements IdoodleService {
         // Send Message!
        this.emailSender.send(message);
        // System.out.println("Email Sent to"+ mail);
+//       System.out.println(mail);
+//       System.out.println(subject);
+//       System.out.println(content);
+       
 		
 	}
 

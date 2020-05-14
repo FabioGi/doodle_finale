@@ -149,7 +149,7 @@ export class SondageComponent implements OnInit {
       const resume: string = this.firstFormGroup.value.resumeCtrl ? this.firstFormGroup.value.resumeCtrl : null;
       const titre: string  = this.firstFormGroup.value.titreCtrl  ? this.firstFormGroup.value.titreCtrl  : null;
 
-      sondage.updateSondage(lieu, titre, resume, mail,subject,content);
+      sondage.updateSondage(lieu, titre, resume, mail);
       this.events.forEach((creneau: SelctedDate) => {
         creneaux.push({date: creneau.date,
                       heure_debut: creneau.start.getHours().toString() + ':' + creneau.start.getMinutes().toString(),
@@ -157,7 +157,8 @@ export class SondageComponent implements OnInit {
                       pause: creneau.pause,
                       valided: false });
       });
-      sondageDTO.createSondage(sondage, creneaux, this.mails);
+      sondageDTO.createSondage(sondage, creneaux, this.mails, subject,content);
+     // console.log(sondageDTO);
       this.ss.createSondage(sondageDTO).subscribe(
         (data) => {
           // this.response = data;
