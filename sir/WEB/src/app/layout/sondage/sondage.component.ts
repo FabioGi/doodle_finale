@@ -143,8 +143,7 @@ export class SondageComponent implements OnInit {
       const subject = 'Invitation au sondage';
       const lien = `http://localhost:5000/dashboard`;
       // tslint:disable-next-line:one-variable-per-declaration
-     //  const content  = `<p> Vous êtes convies à participer au sondage cliquez sur ce lien` + lien + '</p>';
-      const content = 'yes';
+      const content  = `<p> Vous êtes convies à participer au sondage cliquez sur ce lien:` + lien + '</p>';
       const lieu: string   = this.firstFormGroup.value.lieuCtrl   ? this.firstFormGroup.value.lieuCtrl   : null;
       const mail: string   = this.firstFormGroup.value.mailCtrl   ? this.firstFormGroup.value.mailCtrl   : null;
       const resume: string = this.firstFormGroup.value.resumeCtrl ? this.firstFormGroup.value.resumeCtrl : null;

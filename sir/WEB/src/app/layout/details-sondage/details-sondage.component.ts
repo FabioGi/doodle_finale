@@ -141,6 +141,9 @@ export class DetailsSondageComponent implements OnInit {
   }
 
   validedSurvey(id){
+    // const subject = 'Invitation au sondage';
+    // const lien = `http://localhost:5000/dashboard`;
+    // const content  = `<p> Vous êtes convies à participer au sondage cliquez sur ce lien:` + lien + '</p>';
     if(this.disableSurvey.length == 0){
       const  valideSurvey = new ValideSurvey(id, this.invitations);
       this.ds.validedSurvey(valideSurvey).subscribe((data)=>{

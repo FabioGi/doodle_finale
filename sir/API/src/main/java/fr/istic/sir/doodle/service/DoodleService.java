@@ -298,9 +298,9 @@ public class DoodleService implements IdoodleService {
 	public void sendMailToUserAfterSondageCreated(String mail, String subject, String content ) {
 		SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("doodlesondage@istic.com");
-        message.setTo(mail);
-        message.setSubject(subject);
-        message.setText(content);
+        message.setTo(""+mail+"");
+        message.setSubject(""+subject+"");
+        message.setText(""+content+"");
         /*message.setTo("kouassi-othniel.konan@etudiant.univ-rennes1.fr");*/
 
         // Send Message!
