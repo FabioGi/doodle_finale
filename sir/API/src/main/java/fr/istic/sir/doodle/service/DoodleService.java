@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.istic.sir.doodle.dao.ICreneauxReposirory;
 import fr.istic.sir.doodle.dao.IallergieRepository;
-import fr.istic.sir.doodle.dao.Iinvitation;
 import fr.istic.sir.doodle.dao.IpreferenceRepository;
 import fr.istic.sir.doodle.dao.IreunionRepository;
 import fr.istic.sir.doodle.dao.IsondageRepository;
@@ -60,8 +58,6 @@ public class DoodleService implements IdoodleService {
 	ICreneauxReposirory rCreneau;
 	@Autowired
 	private JavaMailSender emailSender;
-	@Autowired
-	private Iinvitation rinvitation;
 	
 	Logger logger = Logger.getLogger("logger");
 	
@@ -91,63 +87,13 @@ public class DoodleService implements IdoodleService {
 	}
 
 	@Override
-	public void sendMailertoUsersWithDateOfMeeting() {
-		// envoie de mail aux utilisateurs avec: 
-		// - clear code pour entrer au batiment
-		// si creneau contient pause ou dejeuner envoie de lien pour preciser les preferences ou allergies (unique)
-		// pour la pause if(creneau.isPause())
-		// lien vers le pad(avec liste de presence et liste d'absences)
-		// titre de la reunion 
-		// date retenue
-	}
-
-	@Override
-	public void createPad() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	// ok
 	public Set<User> attendanceList(long idCreneau,long idSondage) {
-		// Creneaux c = this.selectCrenauxforMeeting();
 		return rUser.findAttendanceList(idCreneau, idSondage);
 	}
 
 	@Override
-	// ok
 	public Set<User> absenceList(long idCreneau,long idSondage) {
 		return rUser.findAbsenceList(idCreneau, idSondage);
-	}
-
-//	@Transactional
-//	@Override
-	// ok
-//	 public boolean createUser(UserDTO user, List<Allergie> allergies, List<Preference> preferences) {
-//		for (Preference preference : preferences) {
-//			preference.setUser(user);
-//		}
-//		
-//		for (Allergie allergie : allergies) {
-//			allergie.setUser(user);
-//		}
-//		user.setAllergies(new ArrayList<>());
-//		user.getAllergies().addAll(allergies);
-//		user.setPreferences(new ArrayList<>());
-//		user.getPreferences().addAll(preferences);
-//		User response = rUser.save(user) ;
-//		return response != null;
-//	}
-	
-
-	@Transactional
-	@Override
-	// ok
-	public boolean createSondage(String idUser, Sondage sondage) {
-		User user = rUser.findById(idUser).get();
-		sondage.setUser(user);
-		Sondage response = rSondage.save(sondage);
-		return response != null ;
-		
 	}
 	
 	@Transactional
@@ -202,42 +148,7 @@ public class DoodleService implements IdoodleService {
 		}
 		// return true;
 	}
-//		Creneaux creneau = rCreneau.findById((long) idCreneau).get();
-//		Vote vote = new Vote();
-//		vote.setDate(creneau);
-//		vote.setUser(user);
-//		return rVote.save(vote) != null;
-		
-//		Creneaux creneau2 = rCreneau.findById((long) 2).get();
-//		Vote vote2 = new Vote();
-//		vote2.setDate(creneau2);
-//		vote2.setUser(user);
-//		rVote.save(vote2);
-//		
-//		User user2 = rUser.findById("hervefab007@gmail.com").get();
-//		Creneaux creneau3 = rCreneau.findById((long) 4).get();
-//		Vote vote3 = new Vote();
-//		vote3.setDate(creneau3);
-//		vote3.setUser(user2);
-//		rVote.save(vote3);
-//		
-//		Vote vote4 = new Vote();
-//		vote4.setDate(creneau);
-//		vote4.setUser(user2);
-//		rVote.save(vote4);
-		
-	// }
 
-//	@Transactional
-//	@Override
-	// ok
-//	public boolean createCrenaux(int idSondage, Creneaux creneau ) {
-//		Sondage sondage = rSondage.findById(new Long(idSondage)).get();
-//		creneau.setSondage(sondage);
-//		// gestion de la pause
-//		// if(creneau.getHeure_debut() >= 12h && creneau.getHeure_debut()  creneau.setPause(true) .)
-//		return rCreneau.save(creneau)!= null;
-//	}
 
 	@Transactional
 	@Override
@@ -305,10 +216,6 @@ public class DoodleService implements IdoodleService {
 
         // Send Message!
        this.emailSender.send(message);
-       // System.out.println("Email Sent to"+ mail);
-//       System.out.println(mail);
-//       System.out.println(subject);
-//       System.out.println(content);
        
 		
 	}

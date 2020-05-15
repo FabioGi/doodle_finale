@@ -11,7 +11,6 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -93,15 +92,3 @@ public class JwtAuthenticationController {
 	    return ResponseEntity.ok(userDao.findAll());
 	  }
 }
-
-//@RequestMapping(value = "/adduser", method = RequestMethod.POST)
-//public boolean createUser(@RequestBody InscriptionForm inscription) {
-//	Objects.requireNonNull(inscription);
-//	User user = inscription.getUser();
-//	List<Allergie> allergies = inscription.getAllergies();
-//	List<Preference> preferences = inscription.getPreferences();
-//	Objects.requireNonNull(user);
-//	Objects.requireNonNull(allergies);
-//	Objects.requireNonNull(preferences);
-//	return doodleService.createUser(user, allergies, preferences);
-//}

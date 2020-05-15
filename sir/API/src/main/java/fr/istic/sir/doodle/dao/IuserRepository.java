@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import fr.istic.sir.doodle.entities.Creneaux;
 import fr.istic.sir.doodle.entities.User;
 
 @RepositoryRestResource

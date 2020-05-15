@@ -1,7 +1,5 @@
 package fr.istic.sir.doodle.form;
 
-import fr.istic.sir.doodle.entities.User;
-
 public class PreferenceDTO {
 	private String name;
 	private String email;

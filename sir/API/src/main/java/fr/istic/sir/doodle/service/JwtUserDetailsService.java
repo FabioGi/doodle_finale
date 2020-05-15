@@ -17,8 +17,6 @@ import fr.istic.sir.doodle.entities.Allergie;
 import fr.istic.sir.doodle.entities.Preference;
 //import fr.istic.sir.doodle.dao.UserDao;
 import fr.istic.sir.doodle.entities.User;
-import fr.istic.sir.doodle.form.AllergieDTO;
-import fr.istic.sir.doodle.form.PreferenceDTO;
 //import fr.istic.sir.doodle.form.DAOUser;
 import fr.istic.sir.doodle.form.UserDTO;
 

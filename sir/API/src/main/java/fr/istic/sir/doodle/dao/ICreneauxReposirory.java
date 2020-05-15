@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import fr.istic.sir.doodle.entities.Creneaux;
 import fr.istic.sir.doodle.entities.Sondage;
-import fr.istic.sir.doodle.entities.User;
-
 @RepositoryRestResource
 @CrossOrigin(origins="http://localhost:5000")  
 public interface ICreneauxReposirory extends  JpaRepository<Creneaux, Long> {

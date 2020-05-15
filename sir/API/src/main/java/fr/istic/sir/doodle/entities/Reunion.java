@@ -1,11 +1,8 @@
 package fr.istic.sir.doodle.entities;
 
-import java.util.Collection;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

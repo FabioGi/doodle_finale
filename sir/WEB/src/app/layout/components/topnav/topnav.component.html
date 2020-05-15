@@ -5,23 +5,7 @@
     <div class="nav-brand">
         DOODLE
     </div>
-    <!-- <form class="hidden-sm" style="margin-left: 20px; margin-top: 5px">
-        <mat-form-field>
-            <input matInput [placeholder]="'Search' | translate">
-        </mat-form-field>
-    </form> -->
     <span class="nav-spacer"></span>
-    <mat-menu #language="matMenu">
-        <button mat-menu-item (click)="changeLang('en')">
-            <span>{{ 'English' | translate }}</span>
-        </button>
-        <button mat-menu-item (click)="changeLang('fr')">
-            <span>{{ 'French' | translate }}</span>
-        </button>
-        <button mat-menu-item (click)="changeLang('ur')">
-            <span>{{ 'Urdu' | translate }}s</span>
-        </button>
-    </mat-menu>
     <button mat-button>
       <span>{{currentUser}}</span>
   </button>

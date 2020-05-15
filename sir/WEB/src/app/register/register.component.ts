@@ -140,7 +140,6 @@ export class RegisterComponent implements OnInit {
       error => {
         // this.invalidLogin = true
         this.error = error.message;
-
       }
     );
   }
