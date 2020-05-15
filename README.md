@@ -1,5 +1,16 @@
 # doodle_finale
-Ce projet consiste à automatiser la gestion des sondages pour le choix d'une date relative à une réunion
+Ce projet consiste à automatiser la gestion des sondages pour le choix d'une date relative à une réunion.
+
+Une personne crée un sondage et l'envoie, avec différentes dates et heures en proposition, qu'il soumet à un ensemble 
+de personnes invité par mail. Ceux-ci ont la possibilité de sélectionner des créneaux entre celles proposée. 
+
+Le participant au sondage (qui peut être aussi celui qui a créé le sondage) dispose d'un Dashboard qui lui permet de voir l'ensemble des sondages qu'il a créés, ceux auxquels il a participé, voir les détails d'un sondage, celui validé par le créateur. 
+
+Il peut voir entre autres la liste des participants, leurs préférences alimentaires, un résumé de la réunion, le code QR unique pour entrer dans le bâtiment pour une réunion spécifique. 
+
+Pour pouvoir participer au sondage, il faut s'authentifier (avoir un compte ou s'en créer). 
+
+Dans le processus de création tu renseignes tes allergies et préférences alimentaires qui seront pris en compte lors de pause si la réunion en contient, pour un éventuel échange culinaire. 
 # Comment installer et utiliser l'application
   Clonner le projet depuis le repository
 ## Bases de données
@@ -7,7 +18,7 @@ Ce projet consiste à automatiser la gestion des sondages pour le choix d'une da
 
 ## Le Back-end
  
- 1 - Ouvrir le projet dans son editeur et selectionner le pom.xml pour importer le projet
+ 1 - Ouvrir le projet dans son éditeur et selectionner le pom.xml pour importer le projet (import de projet maven)
  ```bash
  Sir/API/pom.xml
  ```
@@ -17,7 +28,7 @@ Ce projet consiste à automatiser la gestion des sondages pour le choix d'une da
   ```bash
  Sir/API/src/main/ressources/application.properties
   ```
-  puis remplacer create par update, pour ne pas récréer la base de données a chaque lancement du back-end du projet
+  puis remplacer create par update, pour ne pas récréer la base de données à chaque lancement du back-end du projet.
   ```bash
   spring.jpa.hibernate.ddl-auto =update
   ```
