@@ -11,7 +11,7 @@ Il peut voir entre autres la liste des participants, leurs préférences aliment
 Pour pouvoir participer au sondage, il faut s'authentifier (avoir un compte ou s'en créer). 
 
 Dans le processus de création tu renseignes tes allergies et préférences alimentaires qui seront pris en compte lors de pause si la réunion en contient, pour un éventuel échange culinaire. 
-## Voir une demo de l'application
+## Voir une demo de l'application (10 min)
 https://drive.google.com/drive/folders/108mWXN2I4dXlS-sAtOeWK-WI-a0MJmnZ?usp=sharing
 
 # Comment installer et utiliser l'application
