@@ -13,8 +13,11 @@ Pour pouvoir participer au sondage, il faut s'authentifier (avoir un compte ou s
 Dans le processus de création tu renseignes tes allergies et préférences alimentaires qui seront pris en compte lors de pause si la réunion en contient, pour un éventuel échange culinaire. 
 # Comment installer et utiliser l'application
   Clonner le projet depuis le repository
-## Bases de données
+## Bases de données et serveur mail
   Crées la base de données avec le nom "doodle_sir" sur phpmyadmin
+  
+  Configurer le serveur fakesmtp sur le port 2020
+  ###### <a>http://nilhcem.com/FakeSMTP/</a>
 
 ## Le Back-end
  
