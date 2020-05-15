@@ -1,0 +1,51 @@
+<mat-toolbar color="primary" class="center" *ngIf="creneau" >Details de la reunion du   {{creneau.date | date:'fullDate'}}</mat-toolbar>
+<mat-card *ngIf="meeting" >
+    <mat-card-header class="center">
+        <mat-card-title>{{meeting.titre}}</mat-card-title>
+        <mat-card-subtitle>{{meeting.lieu}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="center">
+        {{meeting.resume}}
+    </mat-card-content>
+</mat-card>
+
+<mat-toolbar color="primary" class="center">Liste de presence</mat-toolbar>
+<table>
+  <tr>
+      <th>
+        Nom participant
+      </th>
+      <th>
+       Email
+      </th>
+      <th>
+
+      </th>
+  </tr>
+  <tr *ngFor="let p of attendlist">
+    <td>
+        {{p.username}}
+    </td>
+    <td>
+       {{p.email}}
+  </td>
+    <td>
+        <button mat-raised-button color="primary" (click)="openDialog(p.email)">Details alimentaire</button>
+    </td>
+  </tr>
+</table>
+<mat-toolbar color="primary" class="center">Code pour entrer dans le batiment</mat-toolbar>
+<!-- <ngx-qrcode qrc-element-type="url" [(qrc-value)]="ngxQrcode2" ></ngx-qrcode > -->
+
+  <ngx-qrcode class="center"
+      [elementType]="url"
+      [value] = "ngxQrcode2"
+      cssClass = "aclass"
+      errorCorrectionLevel = "L">
+</ngx-qrcode>
+<!-- <mat-list role="list" *ngFor="let p of attendlist">
+  <mat-list-item role="listitem" class="center espace">{{p.username}} | {{p.email}}
+       <button mat-raised-button color="primary" (click)="openDialog()">Details alimentaire</button>
+  </mat-list-item>
+</mat-list> -->
+

@@ -8,9 +8,12 @@ import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -206,24 +209,30 @@ public class DoodleService implements IdoodleService {
 	@Override
 	// ajouter le lien, et la date de reunion selection.
 	// sujet 
-	public void sendMailToUserAfterSondageCreated(String mail, String subject, String content ) {
-		SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("doodlesondage@istic.com");
-        message.setTo(""+mail+"");
-        message.setSubject(""+subject+"");
-        message.setText(""+content+"");
-        /*message.setTo("kouassi-othniel.konan@etudiant.univ-rennes1.fr");*/
+	public void sendMailToUserAfterSondageCreated(String mail, String subject, String content ) throws MessagingException {
 
-        // Send Message!
-       this.emailSender.send(message);
+       MimeMessage message = emailSender.createMimeMessage();
        
-		
+       MimeMessageHelper helper = new MimeMessageHelper(message, true);
+       helper.setFrom("doodlesondage@istic.com");
+       helper.setTo(mail);
+       helper.setText(content, true);
+       helper.setSubject(subject);
+       emailSender.send(message);
+       
 	}
+	
+	
 
 	@Override
 	public void sendMultipleMail(List<String> usersMail, String subject, String content) {
 			for(String mail: usersMail ) {	
-				this.sendMailToUserAfterSondageCreated(mail,subject, content);
+				try {
+					this.sendMailToUserAfterSondageCreated(mail,subject, content);
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		
 	} 

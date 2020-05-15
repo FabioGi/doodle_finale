@@ -50,7 +50,6 @@ export class ReunionComponent implements OnInit {
       this.meeting = data ;
       this.dateSelected = data.dated.filter( survey => survey.valided === true);
       this.creneau = this.dateSelected[0];
-      console.log(this.creneau);
       if (this.dateSelected[0]) {
        this.ds.getAttendlist(this.dateSelected[0].id, this.idMeeting).subscribe((attendlist) => {
          this.attendlist = attendlist ;

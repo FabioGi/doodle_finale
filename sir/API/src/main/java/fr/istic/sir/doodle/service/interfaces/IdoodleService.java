@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import javax.mail.MessagingException;
+
 import fr.istic.sir.doodle.entities.Allergie;
 import fr.istic.sir.doodle.entities.Creneaux;
 import fr.istic.sir.doodle.entities.Preference;
@@ -139,8 +141,9 @@ public interface IdoodleService {
 	 * @param mail
 	 * @param subject
 	 * @param content
+	 * @throws MessagingException 
 	 */
-	void sendMailToUserAfterSondageCreated(String mail, String subject, String content);
+	void sendMailToUserAfterSondageCreated(String mail, String subject, String content) throws MessagingException;
 	/***
 	 * 
 	 * @param usersMail

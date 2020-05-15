@@ -10,9 +10,7 @@
           {{meeting.resume}}
       </mat-card-content>
   </mat-card>
-  <mat-card *ngIf="creneau.pause" class="center">
-        <p>Cette reunion contient une pause vous pouvez ajouter vos preferences et allergies alimentaires</p>
-  </mat-card>
+
   <mat-toolbar color="primary" class="center">Liste de presence</mat-toolbar>
   <table>
     <tr>
@@ -34,7 +32,7 @@
          {{p.email}}
     </td>
       <td>
-          <button mat-raised-button color="primary" (click)="openDialog(p.email)" *ngIf="creneau.pause">Details alimentaire</button>
+          <button mat-raised-button color="primary" (click)="openDialog(p.email)">Details alimentaire</button>
       </td>
     </tr>
   </table>
