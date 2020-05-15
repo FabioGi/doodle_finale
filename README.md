@@ -35,9 +35,5 @@ Ce projet consiste à automatiser la gestion des sondages pour le choix d'une da
   ```bash
   3 - ng serve --port 5000
    ```
- ##### NB : Installez ng-cli au préalable sur votre machine
 
-```bash
-npm install -g @angular/cli
-```
 ## Voir une demo de l'application
