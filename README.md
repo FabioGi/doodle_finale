@@ -1,9 +1,9 @@
 # doodle_finale
 Ce projet consiste à automatiser la gestion des sondages pour le choix d'une date relative à une réunion
-# Comment installer et utiliser l'apllication
+# Comment installer et utiliser l'application
   Clonner le projet depuis le repository
 ## Bases de données
-  Crées la base de données avec le nom "doodle_sir" sur MariaDB
+  Crées la base de données avec le nom "doodle_sir" sur phpmyadmin
 
 ## Le Back-end
  
