@@ -2,7 +2,7 @@
 Ce projet consiste à automatiser la gestion des sondages pour le choix d'une date relative à une réunion.
 
 Une personne crée un sondage et l'envoie, avec différentes dates et heures en proposition, qu'il soumet à un ensemble 
-de personnes invité par mail. Ceux-ci ont la possibilité de sélectionner des créneaux entre celles proposée. 
+de personnes invité par mail contenant un lien d'invitation cliquable pour acceder au sondage. Ceux-ci ont la possibilité de sélectionner des créneaux entre celles proposée. 
 
 Le participant au sondage (qui peut être aussi celui qui a créé le sondage) dispose d'un Dashboard qui lui permet de voir l'ensemble des sondages qu'il a créés, ceux auxquels il a participé, voir les détails d'un sondage, celui validé par le créateur. 
 
